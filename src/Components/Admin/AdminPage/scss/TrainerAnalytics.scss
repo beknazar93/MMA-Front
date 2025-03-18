@@ -1,0 +1,54 @@
+.month-container {
+  display: flex;
+  justify-content: space-around;
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Элементы будут располагаться вертикально
+    align-items: center; // Центрируем по оси X
+  }
+}
+
+
+
+.trainer-income {
+  padding: 15px; // Уменьшаем отступы
+  font-family: Arial, sans-serif;
+  background-color: #2c2c2c;
+  border-radius: 8px; // Меньший радиус скругления
+  max-width: 800px; // Уменьшаем максимальную ширину
+  margin: 0 auto;
+}
+
+.trainer-income__title {
+  text-align: center;
+  font-size: 18px; // Уменьшаем размер заголовка
+  margin-bottom: 15px; // Уменьшаем отступ
+  color: #fff;
+}
+
+.trainer-income__filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px; // Уменьшаем промежутки между фильтрами
+  margin-bottom: 15px;
+}
+
+select {
+  padding: 6px 10px; // Уменьшаем отступы внутри select
+  font-size: 12px; // Уменьшаем шрифт
+  border-radius: 4px; // Меньший радиус скругления
+  border: 1px solid #666;
+  background-color: #444;
+  color: #fff;
+  transition: border 0.3s ease, background-color 0.3s ease;
+
+  &:focus {
+    border: 1px solid #4caf50;
+    background-color: #333;
+  }
+
+  option {
+    background-color: #333;
+    color: #fff;
+  }
+}

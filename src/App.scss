@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1050px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@import "./Components/Header/Header.scss";
+@import "./Components/Main/Home/Home.scss";
+@import "./Components/Main/We/We.scss";
+@import "./Components/Main/Programs/Programs.scss";
+@import "./Components/Main/Price/Price.scss";
+@import "./Components/Main/Benefit/Benefit.scss";
+@import "./Components/Main/Companye/Companye.scss";
+@import "./Components/Footer/Footer.scss";
+@import "./Components/Main/Cotegory/SimpleModal/SimpleModal.scss";
+@import "./Components/Main/Cotegory/Sports.scss";
+@import "./Components/Main/Cotegory/Mma/Mma.scss";
+@import "./Components/Main/Follow/Follow.scss";
+@import "./Components/Main/New/New.scss";
+
+
+@import './Components/Admin/AdminPage/scss/AddClient.scss';
+@import './Components/Admin/AdminPage/scss/ClientsTable.scss';
+@import './Components/Admin/AdminPage/scss/ClientUpdate.scss';
+@import './Components/Admin/AdminPage/scss/ClientFilter.scss';
+@import './Components/Admin/AdminPage/scss/AdminManager.scss';
+@import './Components/Admin/AdminPage/scss/ClientIncome.scss';
+@import './Components/Admin/AdminPage/scss/AdminPanel.scss';
+@import './Components/Admin/AdminPage/scss/ProductsList.scss';
+@import './Components/Admin/AdminPage/scss/ProductTabs.scss';
+@import './Components/Admin/AdminPage/scss/TrainerAnalytics.scss';
+@import './Components/Admin/AdminPage/scss/AddProduct.scss';
+@import './Components/Admin/AdminPage/scss/ProductSell.scss';
+@import './Components/Admin/Admin.scss';
+@import './Components/Admin/AdminPage/Chat/Chat.scss';
+@import './Components/Admin/AdminPage/scss/SoldProducts.scss';
+@import './Components/Admin/AdminPage/scss/ExpiringClients.scss';

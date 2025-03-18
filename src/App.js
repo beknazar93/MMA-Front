@@ -21,21 +21,21 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <Header /> */}
+        <Header />
         <hr />
         
         <Routes>
-        <Route path="/" element={<Admin />} />
+        <Route path="/" element={<Main />} />
         <Route path="/admin/*" element={<Admin />} />
-        <Route path="/Виды спорта" element={<Sports />} />
-        <Route path="/Борьба" element={<Wrestling />} />
-        <Route path="/ММА" element={<Mma />} />
-        <Route path="/Бокс" element={<Boxing />} />
-        <Route path="Таэквандо" element={<Taekwondo />} />
-        <Route path="/Самбо" element={<Sambo />} />
-        <Route path="Дзюдо" element={<Judo />} />
-        <Route path="/Греко-Римская-Борьба" element={<Greco />} />
-        <Route path="/Новости" element={<New />} />
+          <Route path="/Виды спорта" element={<Sports />} />
+          <Route path="/Борьба" element={<Wrestling />} />
+          <Route path="/ММА" element={<Mma />} />
+          <Route path="/Бокс" element={<Boxing />} />
+          <Route path="Таэквандо" element={<Taekwondo />} />
+          <Route path="/Самбо" element={<Sambo />} />
+          <Route path="Дзюдо" element={<Judo />} />
+          <Route path="/Греко-Римская-Борьба" element={<Greco />} />
+          <Route path="/Новости" element={<New />} />
         </Routes>
 
         {/* <Footer /> */}

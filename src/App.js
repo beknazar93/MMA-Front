@@ -12,14 +12,7 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-            element={
-              <>
-                <Header />
-                <hr />
-                <Main />
-              </>
-            } 
-          />
+            element={ <> <Header /> <hr /> <Main /> </> } />
           <Route path="/admin/*" element={<Admin />} />
         </Routes>
         {/* <Footer /> */}

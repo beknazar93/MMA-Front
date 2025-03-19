@@ -45,47 +45,6 @@
       }
     }
   
-    &__modalform {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-  
-      &-kub {
-        display: flex;
-        flex-direction: column;
-  
-        &-text {
-          font-size: 16px;
-          margin-bottom: 5px;
-        }
-  
-        &-pole {
-          padding: 10px;
-          border-radius: 5px;
-          border: 1px solid #ddd;
-          outline: none;
-  
-          &:focus {
-            border-color: #ff5722;
-          }
-        }
-      }
-    }
-  
-    &__modalbtn {
-      background-color: #ff5722;
-      color: #fff;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #e64a19;
-      }
-    }
-  
     @media (max-width: 768px) {
       padding: 40px 10px;
   

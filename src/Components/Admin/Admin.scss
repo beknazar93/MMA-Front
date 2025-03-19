@@ -182,7 +182,7 @@
 
   .registration-form {
     max-width: 400px;
-    margin: 40px auto;
+    margin: 200px auto;
     padding: 20px;
     background-color: #2c2c2c;
     border-radius: 8px;
@@ -292,7 +292,6 @@
     @media (max-width: 576px) {
       max-width: 280px;
       padding: 14px;
-      margin: 30px auto;
   
       &__title {
         font-size: 20px;
@@ -331,7 +330,6 @@
     @media (max-width: 320px) {
       max-width: 230px;
       padding: 10px;
-      margin: 20px auto;
   
       &__title {
         font-size: 16px;

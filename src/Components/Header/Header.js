@@ -2,42 +2,62 @@ import React, { useState } from "react";
 import Photo from "../Header/img/mlogo.png";
 import { Link } from "react-router-dom";
 import { CiMenuKebab } from "react-icons/ci";
+import "./Header.scss";
 
 function Header() {
-  const [isOpen, setOpen] = useState();
+  const [isOpen, setOpen] = useState(false);
+
   return (
-    <section className="header">
+    <header className="header">
       <div className="container">
         <div className="header__nav">
-          <img className="header__nav-logo" src={Photo} />
+          <Link to="/" className="header__logo-link">
+            <img className="header__nav-logo" src={Photo} alt="Логотип" />
+          </Link>
+
+          <button
+            className="header__nav-button"
+            onClick={() => setOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <CiMenuKebab size={30} />
+          </button>
+
           <nav className={`header__nav-menu ${isOpen ? "active" : ""}`}>
             <ul className="header__nav-list">
-              <li>
-                <Link to="/" className="header__nav-list-subtitle">
+              <li className="header__nav-item">
+                <Link
+                  to="/"
+                  className="header__nav-link"
+                  onClick={() => setOpen(false)}
+                >
                   Главная
                 </Link>
               </li>
-              <li>
-                <Link to="/Виды спорта" className="header__nav-list-subtitle">
+              <li className="header__nav-item">
+                <Link
+                  to="/sports"
+                  className="header__nav-link"
+                  onClick={() => setOpen(false)}
+                >
                   Виды спорта
                 </Link>
               </li>
-              <li>
-                <Link to="/Новости" className="header__nav-list-subtitle">
+              <li className="header__nav-item">
+                <Link
+                  to="/news"
+                  className="header__nav-link"
+                  onClick={() => setOpen(false)}
+                >
                   Наш зал
                 </Link>
               </li>
             </ul>
           </nav>
-          <button
-            className="header__nav-button"
-            onClick={() => setOpen(!isOpen)}
-          >
-            <CiMenuKebab />
-          </button>
         </div>
       </div>
-    </section>
+    </header>
   );
 }
+
 export default Header;

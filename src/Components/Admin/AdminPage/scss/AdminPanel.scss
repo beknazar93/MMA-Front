@@ -118,3 +118,14 @@
     padding: 10px;
   }
 }
+@media (max-width: 320px) {
+  .custom-sidebar {
+    overflow-x: auto; // только горизонтальная прокрутка
+    &__list {
+      display: flex;
+      flex-wrap: nowrap; // элементы в одну строку
+      width: max-content; // для корректной прокрутки
+    }
+  }
+}
+

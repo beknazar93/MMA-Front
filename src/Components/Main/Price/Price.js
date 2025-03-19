@@ -4,8 +4,6 @@ import vip from '../Price/img/вип1.png';
 import big from '../Price/img/big.png';
 import SimpleModal from '../SimpleModal/SimpleModal';
 
-
-
 function Price({ }) {
 
   const [modalPrice, setmodalPrice] = useState(false)

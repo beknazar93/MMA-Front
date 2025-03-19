@@ -5,7 +5,7 @@
 }
 
 .container {
-  max-width: 1050px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
@@ -18,11 +18,7 @@
 @import "./Components/Main/Benefit/Benefit.scss";
 @import "./Components/Main/Companye/Companye.scss";
 @import "./Components/Footer/Footer.scss";
-@import "./Components/Main/Cotegory/SimpleModal/SimpleModal.scss";
-@import "./Components/Main/Cotegory/Sports.scss";
-@import "./Components/Main/Cotegory/Mma/Mma.scss";
 @import "./Components/Main/Follow/Follow.scss";
-@import "./Components/Main/New/New.scss";
 
 
 @import './Components/Admin/AdminPage/scss/AddClient.scss';

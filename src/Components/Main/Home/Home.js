@@ -34,7 +34,7 @@ function Home() {
 
         <div className="home__form">
           <h1 className='home__form-title'>Профессиональная  школа <br /> Единоборств в Оше </h1>
-          <p className='home__form-text'>Сделай сегодня то, что другие не хотят, завтра<br />будешь жить так другие не могут.</p>
+          <p className='home__form-text'>Сделай сегодня то, что другие не хотят, завтра<br />будешь жить так, как другие не могут.</p>
           <button className='home__form-btn' onClick={() => setmodalinfo(true)}>Записаться сейчас</button>
         </div>
         

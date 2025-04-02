@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# 🥋 MMA CRM Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Фронтенд-часть CRM-системы для управления заявками, клиентами и сотрудниками в спортивной сфере (или ты просто любишь брутальные аббревиатуры — мы не осуждаем).
 
-## Available Scripts
+## ⚙️ Стек технологий
 
-In the project directory, you can run:
+- React
+- React Router
+- SCSS / CSS Modules
+- Axios
+- Vite или Create React App (в зависимости от текущей настройки)
+- API взаимодействие с [CRM Backend](https://github.com/beknazar93/CRM)
 
-### `npm start`
+## 🚀 Запуск проекта
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Установи зависимости:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+Запусти проект в режиме разработки:
 
-### `npm test`
+bash
+Копировать
+Редактировать
+npm start
+Открой браузер по адресу:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+arduino
+Копировать
+Редактировать
+http://localhost:3000
+Проект будет автоматически обновляться при изменениях в коде.
 
-### `npm run build`
+📁 Структура
+bash
+Копировать
+Редактировать
+src/
+├── components/        # Переиспользуемые UI-компоненты
+├── pages/             # Страницы приложения
+├── services/          # Axios-инстансы и API-запросы
+├── assets/            # Иконки, изображения и стили
+├── App.js             # Главный компонент
+└── index.js           # Точка входа
+🔌 Интеграция с бекендом
+Проект обращается к REST API, развернутому на Django. Все запросы сконфигурированы в services/api.js. Убедись, что бекенд запущен и доступен по нужному адресу (например, http://localhost:8000).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🛠 Команды разработчика
+bash
+Копировать
+Редактировать
+npm run build      # Сборка production-версии
+npm run lint       # Проверка линтинга (если настроено)
+npm test           # Запуск тестов (если будет желание)
+💡 Автор
+Этот интерфейс был собран вручную и с минимальной болью:
+beknazar93

@@ -7,7 +7,7 @@ const ProductSell = () => {
   const [priceSelling, setPriceSelling] = useState("");
   const [dateSelling, setDateSelling] = useState("");
   const [count, setCount] = useState("");
-  const [sale, setSale] = useState(""); // Процент скидки
+  const [sale, setSale] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 

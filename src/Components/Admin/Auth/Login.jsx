@@ -1,53 +1,40 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaUser, FaLock } from "react-icons/fa";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Индикация загрузки
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Сброс ошибок перед новым запросом
+    setError("");
 
     try {
-      // Отправляем запрос на вход
       const response = await axios.post(
         "https://testosh.pythonanywhere.com/login/",
-        {
-          username,
-          password,
-        }
+        { username, password }
       );
 
-
-      // Сохраняем токены в локальное хранилище
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
 
-      // Запрашиваем профиль пользователя для получения роли и имени
       const profileResponse = await axios.get(
         "https://testosh.pythonanywhere.com/profile/",
-        {
-          headers: {
-            Authorization: `Bearer ${response.data.access}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${response.data.access}` } }
       );
 
       const userRole = profileResponse.data.role;
-      const managerName = profileResponse.data.username; // Имя менеджера
+      const managerName = profileResponse.data.username;
 
-      // Сохраняем имя менеджера
       localStorage.setItem("manager_name", managerName);
 
-      // Перенаправляем в зависимости от роли
       switch (userRole) {
         case "admin":
           navigate("/admin/AdminPanel");
@@ -58,12 +45,6 @@ const Login = () => {
         case "product_manager":
           navigate("/admin/AdminProduct");
           break;
-        // case "hr_manager":
-        //   navigate("/admin/Chat");
-        //   break;
-        // case "employee":
-        //   navigate("/admin/employeeDashboard");
-        //   break;
         default:
           setError("Неизвестная роль пользователя");
       }
@@ -79,47 +60,60 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    const form = document.querySelector(".login-form");
+    form.classList.add("login-form--animate");
+  }, []);
+
   return (
-<form onSubmit={handleLogin} className="login-form">
-  <h2 className="login-form__title">Вход в CRM MMA</h2>
-  {error && <p className="login-form__error">{error}</p>}
-  
-  <input
-    type="text"
-    placeholder="Имя пользователя"
-    value={username}
-    onChange={(e) => setUsername(e.target.value)}
-    required
-    className="login-form__input"
-  />
-  
-  <div className="login-form__password-container">
-    <input
-      type={showPassword ? "text" : "password"}
-      placeholder="Пароль"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      required
-      className="login-form__input"
-    />
-    <button
-      type="button"
-      className="login-form__password-toggle"
-      onClick={(e) => {
-        e.preventDefault();
-        setShowPassword((prev) => !prev);
-      }}
-    >
-      {showPassword ? "Скрыть" : "Показать"}
-    </button>
-  </div>
+    <form onSubmit={handleLogin} className="login-form">
+      <h2 className="login-form__title">Вход в CRM MMA</h2>
+      {error && <p className="login-form__error">{error}</p>}
 
-  <button type="submit" className="login-form__submit" disabled={loading}>
-    {loading ? "Вход..." : "Войти"}
-  </button>
-  
-</form>
+      <div className="login-form__input-container">
+        <FaUser className="login-form__icon" />
+        <input
+          type="text"
+          placeholder="Имя пользователя"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          className="login-form__input"
+        />
+      </div>
 
+      <div className="login-form__input-container">
+        <div className="login-form__password-container">
+          <FaLock className="login-form__icon" />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="login-form__input"
+          />
+          <button
+            type="button"
+            className="login-form__password-toggle"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowPassword((prev) => !prev);
+            }}
+          >
+            {showPassword ? "Скрыть" : "Показать"}
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" className="login-form__submit" disabled={loading}>
+        {loading ? (
+          <span className="login-form__loading">Вход...</span>
+        ) : (
+          "Войти"
+        )}
+      </button>
+    </form>
   );
 };
 

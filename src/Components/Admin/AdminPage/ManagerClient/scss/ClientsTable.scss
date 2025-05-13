@@ -1,0 +1,153 @@
+.client-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .client-card {
+    background-color: #1e1e2f;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgb(0 222 255 / 60%);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+    }
+
+    &__name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f1f1f1;
+      margin-bottom: 12px;
+    }
+
+    &__details-button {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s, transform 0.2s;
+
+      &:hover {
+        background: #3a78c2;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .client-list__cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  }
+}
+@media (max-width: 768px) {
+  .client-list__cards {
+    grid-template-columns: 1fr; 
+  }
+}
+
+.client-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    background-color: #1e1e2f; 
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+  padding: 25px;
+  z-index: 1000;
+  max-width: 550px;
+  width: 90%;
+
+  &__content {
+    position: relative;
+  }
+
+  &__title {
+    margin-top: 0;
+    font-size: 22px;
+    color: #f1f1f1;
+  }
+
+  &__item {
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #e0e0e0;
+
+    strong {
+      font-weight: 600;
+      color: #f1f1f1;
+    }
+  }
+
+  &__payment-status {
+    font-weight: bold;
+
+    &.paid {
+      color: #28a745;
+    }
+
+    &.unpaid {
+      color: #dc3545;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #bbb;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #f1f1f1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .client-modal {
+    width: 95%; 
+    padding: 20px;
+  }
+
+  .client-modal__title {
+    font-size: 20px; 
+  }
+
+  .client-modal__close {
+    font-size: 24px; 
+  }
+}

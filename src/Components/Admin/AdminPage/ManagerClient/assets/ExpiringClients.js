@@ -11,7 +11,6 @@ function ExpiringClients() {
     "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь",
   ];
 
-  // Функция для расчета дат начала и окончания абонемента
   const getClientDates = (client) => {
     const today = new Date();
     const clientDay = parseInt(client.day, 10) || 1;
@@ -23,7 +22,7 @@ function ExpiringClients() {
     return { startDate, expiryDate };
   };
 
-  // Фильтрация клиентов, у которых срок заканчивается в ближайшие 5 дней
+
   const getExpiringClients = (clients) => {
     const today = new Date();
     return clients.filter((client) => {
@@ -34,7 +33,7 @@ function ExpiringClients() {
     });
   };
 
-  // Загрузка данных
+
   const loadClients = async () => {
     try {
       const data = await fetchClients();
@@ -48,8 +47,8 @@ function ExpiringClients() {
   };
 
   useEffect(() => {
-    loadClients(); // Первая загрузка
-    const interval = setInterval(loadClients, 24 * 60 * 60 * 1000); // Обновление раз в сутки
+    loadClients(); 
+    const interval = setInterval(loadClients, 24 * 60 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 

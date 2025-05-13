@@ -20,20 +20,25 @@
 @import "./Components/Footer/Footer.scss";
 @import "./Components/Main/Follow/Follow.scss";
 
+@import "./Components/Admin/AdminPanel.scss";
+@import "./Components/Admin/Admin.scss";
+@import "./Components/Admin/AdminPage/Chat/Chat.scss";
 
-@import './Components/Admin/AdminPage/scss/AddClient.scss';
-@import './Components/Admin/AdminPage/scss/ClientsTable.scss';
-@import './Components/Admin/AdminPage/scss/ClientUpdate.scss';
-@import './Components/Admin/AdminPage/scss/ClientFilter.scss';
-@import './Components/Admin/AdminPage/scss/AdminManager.scss';
-@import './Components/Admin/AdminPage/scss/ClientIncome.scss';
-@import './Components/Admin/AdminPage/scss/AdminPanel.scss';
-@import './Components/Admin/AdminPage/scss/ProductsList.scss';
-@import './Components/Admin/AdminPage/scss/ProductTabs.scss';
-@import './Components/Admin/AdminPage/scss/TrainerAnalytics.scss';
-@import './Components/Admin/AdminPage/scss/AddProduct.scss';
-@import './Components/Admin/AdminPage/scss/ProductSell.scss';
-@import './Components/Admin/Admin.scss';
-@import './Components/Admin/AdminPage/Chat/Chat.scss';
-@import './Components/Admin/AdminPage/scss/SoldProducts.scss';
-@import './Components/Admin/AdminPage/scss/ExpiringClients.scss';
+@import "./Components/Admin/AdminPage/Analitic/scss/Analitic.scss";
+@import "./Components/Admin/AdminPage/Analitic/scss/ClientIncome.scss";
+@import "./Components/Admin/AdminPage/Analitic/scss/Sport.scss";
+@import "./Components/Admin/AdminPage/Analitic/scss/StudentsComparison.scss";
+@import "./Components/Admin/AdminPage/Analitic/scss/TrainerAnalytics.scss";
+
+@import "./Components/Admin/AdminPage/Product/scss/AddProduct.scss";
+@import "./Components/Admin/AdminPage/Product/scss/ProductSell.scss";
+@import "./Components/Admin/AdminPage/Product/scss/ProductsList.scss";
+@import "./Components/Admin/AdminPage/Product/scss/ProductTabs.scss";
+@import "./Components/Admin/AdminPage/Product/scss/SoldProducts.scss";
+
+@import "./Components/Admin/AdminPage/ManagerClient/scss/AddClient.scss";
+@import "./Components/Admin/AdminPage/ManagerClient/scss/AdminManager.scss";
+@import "./Components/Admin/AdminPage/ManagerClient/scss/ClientFilter.scss";
+@import "./Components/Admin/AdminPage/ManagerClient/scss/ClientsTable.scss";
+@import "./Components/Admin/AdminPage/ManagerClient/scss/ClientUpdate.scss";
+@import "./Components/Admin/AdminPage/ManagerClient/scss/ExpiringClients.scss";

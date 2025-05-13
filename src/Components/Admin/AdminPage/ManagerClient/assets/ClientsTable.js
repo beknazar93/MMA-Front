@@ -55,7 +55,7 @@ function ClientsTable() {
   const years = useMemo(() => Array.from({ length: 1 }, (_, i) => 2025 - i), []);
   const days = useMemo(() => Array.from({ length: 31 }, (_, i) => (i + 1).toString()), []);
 
-  // Функция загрузки клиентов
+
   const loadClients = useCallback(async () => {
     try {
       setLoading(true);
@@ -73,7 +73,7 @@ function ClientsTable() {
     loadClients();
   }, [loadClients]);
 
-  // Фильтрация клиентов
+
   const filteredClients = useMemo(() => {
     return clients
       .filter((client) => {

@@ -24,7 +24,7 @@ const WhatsAppChat = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // добавлено состояние для бургер-меню
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
   const messagesEndRef = useRef(null);
 
   const fetchChats = async () => {
@@ -115,7 +115,6 @@ const WhatsAppChat = () => {
           {chats.map((chat) => (
             <li key={chat.id} className={currentChat === chat.id ? 'active' : ''} onClick={() => { setCurrentChat(chat.id); fetchMessages(chat.id); setIsSidebarOpen(false); }}>
               <img 
-              // src={chat.profilePic || 'default-avatar.png'} 
               src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvFDDvFnERUV4rSN7nAF_UjvwnQVYs5sd2fA&s'
               alt="Аватар" className="avatar" />
               <span className="chat-name">{chat.name || formatPhoneNumber(chat.id)}</span>

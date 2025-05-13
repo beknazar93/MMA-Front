@@ -1,0 +1,164 @@
+:root {
+  --primary-bg: #1e1e2f;
+  --text-color: #f5f5f5;
+  --text-secondary: #b3b3b3;
+  --accent-color: #ffcc00;
+  --highlight-color: #8884d8;
+  --border-color: #444;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --error-color: #ff4d4d;
+}
+
+.trainer-analytics {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px var(--shadow-color);
+
+  &__title {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__filters {
+    margin-bottom: 20px;
+  }
+
+  &__filter-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  &__label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 100px;
+  }
+
+  &__select {
+    flex: 1;
+    max-width: 200px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    background-color: #2a2a3d;
+    color: var(--text-color);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
+
+    &:focus {
+      box-shadow: 0 0 5px var(--accent-color);
+    }
+  }
+
+  &__reset-btn {
+    width: 100%;
+    max-width: 120px;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: var(--error-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #e63939;
+    }
+  }
+
+  &__charts {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__chart {
+    flex: 1;
+    min-width: 300px;
+    background-color: #2a2a3d;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px var(--shadow-color);
+  }
+
+  &__chart-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__loader {
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-secondary);
+    padding: 20px;
+  }
+
+  &__error {
+    text-align: center;
+    font-size: 16px;
+    color: var(--error-color);
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__filter-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__label {
+      min-width: auto;
+      margin-bottom: 5px;
+    }
+
+    &__select {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    &__charts {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__title {
+      font-size: 20px;
+    }
+
+    &__chart {
+      padding: 10px;
+    }
+
+    &__chart-title {
+      font-size: 16px;
+    }
+  }
+}

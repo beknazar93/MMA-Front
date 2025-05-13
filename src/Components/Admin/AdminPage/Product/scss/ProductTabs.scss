@@ -1,0 +1,154 @@
+.product-tabs {
+    background-color: #1e1e2f; 
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  height: 100vh;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #4a90e2;
+
+    .manager-name {
+      color: #d9d9d9;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .logout-btn {
+      background: #333;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: #555;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #4a90e2;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      flex-shrink: 0;
+
+      &.active {
+        color: #0099ff;
+        font-weight: bold;
+      }
+
+      &:hover {
+        color: #0099ff;
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    padding: 20px;
+    background-color: #1e1e2f;
+    border-radius: 8px;
+    z-index: 2;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 15px;
+
+    &__header {
+      margin-bottom: 12px;
+    }
+
+    &__nav {
+      margin-bottom: 15px;
+    }
+
+    &__content {
+      padding: 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+
+    &__header {
+      margin-bottom: 10px;
+    }
+
+    &__nav {
+      margin-bottom: 10px;
+    }
+
+    &__content {
+      padding: 10px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 8px;
+
+    &__header {
+      margin-bottom: 8px;
+    }
+
+    &__nav {
+      margin-bottom: 8px;
+    }
+
+    &__content {
+      padding: 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px;
+
+    &__header {
+      margin-bottom: 6px;
+    }
+
+    &__nav {
+      margin-bottom: 6px;
+    }
+
+    &__content {
+      padding: 6px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    padding: 5px;
+
+    &__header {
+      margin-bottom: 5px;
+    }
+
+    &__nav {
+      margin-bottom: 5px;
+    }
+
+    &__content {
+      padding: 5px;
+    }
+  }
+}

@@ -18,7 +18,7 @@ const HeaderClients = ({ title, error, onLogout }) => {
 HeaderClients.propTypes = {
   title: PropTypes.string.isRequired,
   error: PropTypes.string,
-  onLogout: PropTypes.func, // Необязательный
+  onLogout: PropTypes.func,
 };
 
 export default HeaderClients;

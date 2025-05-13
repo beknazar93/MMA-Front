@@ -5,11 +5,11 @@ const DailyClients = () => {
   const [clients, setClients] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
-  const [paymentAmount, setPaymentAmount] = useState(200); // По умолчанию 200 сом
+  const [paymentAmount, setPaymentAmount] = useState(200); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Загружаем всех клиентов
+
   const loadClients = useCallback(async () => {
     setLoading(true);
     try {
@@ -27,7 +27,7 @@ const DailyClients = () => {
     loadClients();
   }, [loadClients]);
 
-  // Автоматический поиск клиентов при вводе
+
   useEffect(() => {
     if (!searchName.trim()) {
       setFilteredClients([]);
@@ -40,7 +40,7 @@ const DailyClients = () => {
     setFilteredClients(matches);
   }, [searchName, clients]);
 
-  // Функция для увеличения суммы оплаты
+
   const handleExtendPayment = async (client) => {
     if (!paymentAmount || isNaN(paymentAmount) || paymentAmount <= 0) {
       alert("Введите корректную сумму!");
@@ -52,7 +52,7 @@ const DailyClients = () => {
       const updatedData = { ...client, price: updatedPrice };
       await updateClient(client.id, updatedData);
       alert(`Оплата клиента ${client.name} увеличена на ${paymentAmount} сом!`);
-      loadClients(); // Перезагрузка списка клиентов
+      loadClients(); 
     } catch (error) {
       alert("Ошибка при продлении оплаты.");
     }
@@ -62,7 +62,7 @@ const DailyClients = () => {
     <div style={styles.container}>
       <h1 style={styles.title}>Продление оплаты клиента</h1>
 
-      {/* Поле поиска */}
+
       <input
         type="text"
         placeholder="Введите имя клиента"
@@ -71,7 +71,7 @@ const DailyClients = () => {
         style={styles.input}
       />
 
-      {/* Поле для ввода суммы */}
+
       <input
         type="number"
         placeholder="Сумма (сом)"
@@ -80,7 +80,7 @@ const DailyClients = () => {
         style={styles.input}
       />
 
-      {/* Отображение совпадений */}
+
       {filteredClients.length > 0 ? (
         <div style={styles.clientGrid}>
           {filteredClients.map((client) => (
@@ -108,13 +108,13 @@ const DailyClients = () => {
   );
 };
 
-// 🎨 Стили
+
 const styles = {
   container: {
     padding: "30px",
     maxWidth: "600px",
     margin: "0 auto",
-    backgroundColor: "#1e1e1e",
+    backgroundColor: "#1e1e2f",
     borderRadius: "12px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
     textAlign: "center",
@@ -129,8 +129,8 @@ const styles = {
     padding: "10px",
     fontSize: "16px",
     borderRadius: "6px",
-    border: "1px solid #444",
-    backgroundColor: "#2a2a2a",
+    border: "1px solid #4a90e2",
+    backgroundColor: "#1e1e2f",
     color: "#e0e0e0",
     outline: "none",
     width: "90%",
@@ -141,7 +141,7 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
     gap: "10px",
-    maxHeight: "400px", // Ограничение высоты для большого количества клиентов
+    maxHeight: "400px",
     overflowY: "auto",
     padding: "10px",
   },

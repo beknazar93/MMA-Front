@@ -7,7 +7,7 @@ const getAuthHeaders = () => {
   return { Authorization: `Bearer ${token}` };
 };
 
-// Получение списка продуктов
+
 export const fetchProducts = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/products/`, {
@@ -19,7 +19,7 @@ export const fetchProducts = async () => {
   }
 };
 
-// Добавление нового продукта
+
 export const addProduct = async (productData) => {
   try {
     const response = await axios.post(`${BASE_URL}/products/`, productData, {
@@ -32,7 +32,7 @@ export const addProduct = async (productData) => {
   }
 };
 
-// Удаление продукта по ID
+
 export const deleteProduct = async (id) => {
   try {
     const response = await axios.delete(`${BASE_URL}/products/${id}/`, {

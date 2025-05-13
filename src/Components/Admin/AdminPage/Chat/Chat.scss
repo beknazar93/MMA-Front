@@ -26,7 +26,7 @@
 
   .sidebar {
     height: 100%;
-    width: 300px; // фиксированная ширина для десктопной версии
+    width: 300px; 
     background-color: #fff;
     border-right: 1px solid #ddd;
     overflow-y: auto;
@@ -76,7 +76,7 @@
   }
 
   .chat-window {
-    flex: 1; // занимает оставшееся пространство
+    flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #efe7de;
@@ -195,7 +195,7 @@
     }
   }
 
-  // Медиа-запросы для мобильной версии (до 768px)
+
   @media (max-width: 768px) {
     .burger-menu {
       display: block;
@@ -219,15 +219,15 @@
     }
   }
 
-  // Медиа-запросы для десктопной версии (от 769px)
+
   @media (min-width: 769px) {
     .burger-menu {
       display: none;
     }
 
     .sidebar {
-      position: relative; // возвращаем в нормальный поток
-      transform: translateX(0); // всегда видно
+      position: relative; 
+      transform: translateX(0);
     }
   }
 }

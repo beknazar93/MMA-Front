@@ -27,9 +27,8 @@ const AdminManager = () => {
     other: <AddClient />,
     update: <ClientUpdate />,
     payment: <ClientPayment />,
-    dayclients: <DailyClients/>,
+    dayclients: <DailyClients />,
     delete: <ClientDelete />,
-    srok: <ExpiringClients />
   };
 
   return (
@@ -66,7 +65,9 @@ const AdminManager = () => {
           Переход
         </div>
         <div
-          className={`nav-item ${activeSection === "dayclients" ? "active" : ""}`}
+          className={`nav-item ${
+            activeSection === "dayclients" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("dayclients")}
         >
           Продление
@@ -76,12 +77,6 @@ const AdminManager = () => {
           onClick={() => setActiveSection("delete")}
         >
           Удаление
-        </div>
-        <div
-          className={`nav-item ${activeSection === "srok" ? "active" : ""}`}
-          onClick={() => setActiveSection("srok")}
-        >
-          Срок
         </div>
       </div>
       <div className="main-content">{sections[activeSection]}</div>

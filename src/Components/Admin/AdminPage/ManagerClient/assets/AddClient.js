@@ -4,12 +4,12 @@ import { addClient } from "../../api/API";
 function AddClient() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "Abytov247@gmail.com", // Фиксированный email
+    email: "Abytov247@gmail.com",
     phone: "",
     stage: "",
     trainer: "",
     sport_category: "",
-    year: "2025", // Фиксированный год
+    year: "2025", 
     month: "",
     day: "",
     comment: "",
@@ -39,14 +39,14 @@ function AddClient() {
 
   const days = useMemo(() => Array.from({ length: 31 }, (_, i) => (i + 1).toString()), []);
 
-  // Универсальный обработчик изменения инпутов (исключаем фиксированные поля)
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "email" || name === "year") return; // Запрещаем изменение email и года
+    if (name === "email" || name === "year") return; 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Обработчик отправки формы
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -56,12 +56,12 @@ function AddClient() {
       alert("Клиент добавлен успешно!");
       setFormData({
         name: "",
-        email: "Abytov247@gmail.com", // Оставляем фиксированным
+        email: "Abytov247@gmail.com",
         phone: "",
         stage: "",
         trainer: "",
         sport_category: "",
-        year: "2025", // Оставляем фиксированным
+        year: "2025", 
         month: "",
         day: "",
         comment: "",
@@ -100,7 +100,7 @@ function AddClient() {
           onChange={handleInputChange}
         />
 
-        {/* Фиксированный Email */}
+
         <input
           className="client-form__input"
           type="email"
@@ -158,7 +158,6 @@ function AddClient() {
           ))}
         </select>
 
-        {/* Фиксированный Год */}
         <input
           className="client-form__input"
           type="text"

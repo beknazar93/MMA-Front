@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { FaUser, FaEnvelope, FaLock, FaUserTag } from "react-icons/fa";
 
 const errorMessages = {
   "A user with that username already exists.":
@@ -13,7 +14,7 @@ const errorMessages = {
 };
 
 const translateError = (error) => {
-  return errorMessages[error] || error; // Если перевод не найден, показываем оригинальный текст
+  return errorMessages[error] || error;
 };
 
 const Register = () => {
@@ -23,9 +24,9 @@ const Register = () => {
     password: "",
     role: "employee",
   });
-
   const [errors, setErrors] = useState([]);
-  const navigate = useNavigate(); // Используем хук для перенаправления
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +35,15 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setErrors([]);
     try {
       await axios.post(
         "https://testosh.pythonanywhere.com/register/",
         formData
       );
-      alert("Регистрация прошла успешно!"); // Уведомление об успешной регистрации
-      navigate("/admin"); // Перенаправляем на страницу входа
+      alert("Регистрация прошла успешно!");
+      navigate("/admin");
     } catch (error) {
       if (error.response && error.response.data) {
         const serverErrors = error.response.data;
@@ -53,8 +55,15 @@ const Register = () => {
       } else {
         setErrors(["Произошла неизвестная ошибка. Попробуйте позже."]);
       }
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const form = document.querySelector(".registration-form");
+    form.classList.add("registration-form--animate");
+  }, []);
 
   return (
     <form onSubmit={handleRegister} className="registration-form">
@@ -66,46 +75,65 @@ const Register = () => {
           ))}
         </div>
       )}
-      <input
-        type="text"
-        name="username"
-        placeholder="Имя пользователя"
-        value={formData.username}
-        onChange={handleInputChange}
-        className="registration-form__input"
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleInputChange}
-        className="registration-form__input"
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Пароль"
-        value={formData.password}
-        onChange={handleInputChange}
-        className="registration-form__input"
-      />
-      <select
-        name="role"
-        value={formData.role}
-        onChange={handleInputChange}
-        className="registration-form__select"
+      <div className="registration-form__input-container">
+        <FaUser className="registration-form__icon" />
+        <input
+          type="text"
+          name="username"
+          placeholder="Имя пользователя"
+          value={formData.username}
+          onChange={handleInputChange}
+          className="registration-form__input"
+        />
+      </div>
+      <div className="registration-form__input-container">
+        <FaEnvelope className="registration-form__icon" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          className="registration-form__input"
+        />
+      </div>
+      <div className="registration-form__input-container">
+        <FaLock className="registration-form__icon" />
+        <input
+          type="password"
+          name="password"
+          placeholder="Пароль"
+          value={formData.password}
+          onChange={handleInputChange}
+          className="registration-form__input"
+        />
+      </div>
+      <div className="registration-form__input-container">
+        <FaUserTag className="registration-form__icon" />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleInputChange}
+          className="registration-form__select"
+        >
+          <option value="">Выберите Роль</option>
+          <option value="admin">Администратор</option>
+          <option value="client_manager">Менеджер по работе с клиентами</option>
+          <option value="product_manager">Менеджер продукта</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        className="registration-form__button"
+        disabled={loading}
       >
-        <option value="">Выберите Роль</option>
-        <option value="admin">Администратор</option>
-        <option value="client_manager">Менеджер по работе с клиентами</option>
-        <option value="product_manager">Менеджер продукта</option>
-        {/* <option value="hr_manager">HR-менеджер</option> */}
-      </select>
-      <button type="submit" className="registration-form__button">Регистрация</button>
-      {/* <Link to="/admin" className="registration-form__link">Уже есть аккаунт</Link> */}
+        {loading ? (
+          <span className="registration-form__loading">Регистрация...</span>
+        ) : (
+          "Регистрация"
+        )}
+      </button>
     </form>
-
   );
 };
 

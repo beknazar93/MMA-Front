@@ -3,6 +3,9 @@ import ClientIncome from "./ClientIncome";
 import TrainerAnalytics from "./Trainer/TrainerAnalytics";
 import Sport from "./Sport";
 import StudentsComparison from "./StudentsComparison";
+import ClientNewRevenue from "./ClientNewRevenue";
+import Source from "./Source";
+
 
 function Analitic() {
   const [activeTab, setActiveTab] = useState("ClientIncome"); 
@@ -20,6 +23,16 @@ function Analitic() {
       label: "Доход тренеров",
       component: <TrainerAnalytics />,
     },
+    {
+      name: "Source",
+      label: "Источник",
+      component: <Source />,
+    },
+    {
+      name: "ClientNewRevenue",
+      label: "Доход новых",
+      component: <ClientNewRevenue />,
+    },
   ];
 
   const renderContent = () => {
@@ -31,7 +44,7 @@ function Analitic() {
     <div className="analitic">
       <div className="analitic__tabs">
         {tabs.map((tab) => (
-          <div
+          <button
             key={tab.name}
             className={`analitic__tab ${
               activeTab === tab.name ? "analitic__tab--active" : ""
@@ -39,7 +52,7 @@ function Analitic() {
             onClick={() => setActiveTab(tab.name)}
           >
             {tab.label}
-          </div>
+          </button>
         ))}
       </div>
       <div className="analitic__content">{renderContent()}</div>

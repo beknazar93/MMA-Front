@@ -13,15 +13,25 @@ function ClientDelete() {
     sport_category: '',
     day: '',
     month: '',
-    year: ''
+    year: '',
+    payment: '',
   });
 
   const trainers = useMemo(() => [
-    "Азизбек Уулу Баяман", "Анарбаев Акжол", "Асанбаев Эрлан",
-    "Жумалы Уулу Ариет", "Калмамат Уулу Акай", "Лукас Крабб",
-    "Маматжанов Марлен", "Машрапов Жумабай", "Машрапов Тилек",
-    "Медербек Уулу Сафармурат", "Минбаев Сулайман", "Мойдунов Мирлан",
-    "Пазылов Кутман", "Тажибаев Азамат", "Тургунов Ислам"
+      "Абдыкадыров Султан",
+      "Азизбек Уулу Баяман",
+      "Асанбаев Эрлан",
+      "Жумалы Уулу Ариет",
+      "Калмамат Уулу Акай",
+      "Лукас Крабб",
+      "Машрапов Жумабай",
+      "Машрапов Тилек",
+      "Медербек Уулу Сафармурат",
+      "Минбаев Сулайман",
+      "Мойдунов Мирлан",
+      "Пазылов Кутман",
+      "Тажибаев Азамат",
+      "Тургунов Ислам",
   ], []);
 
   const sports = useMemo(() => [
@@ -63,7 +73,8 @@ function ClientDelete() {
         (!filters.sport_category || client.sport_category === filters.sport_category) &&
         (!filters.day || client.day === filters.day) &&
         (!filters.month || client.month === filters.month) &&
-        (!filters.year || client.year === filters.year)
+        (!filters.year || client.year === filters.year) &&
+        (!filters.payment || client.payment === filters.payment)
       ))
       .slice()
       .reverse();
@@ -91,12 +102,6 @@ function ClientDelete() {
     }
   };
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>{error}</div>;
-  if (!Array.isArray(clients) || clients.length === 0) {
-    return <p>Нет клиентов для отображения.</p>;
-  }
-
   return (
     <div className="client-list">
       <FilterComponent
@@ -110,18 +115,26 @@ function ClientDelete() {
       />
 
       <div className="client-list__cards">
-        {filteredClients.map(client => (
-          <div className="client-card" key={client.id}>
-            <p className="client-card__name">{client.name}</p>
-            <button
-              className="client-card__details-button"
-              onClick={() => handleDelete(client.id)}
-              disabled={deletingClientId === client.id}
-            >
-              {deletingClientId === client.id ? "Удаление..." : "Удалить"}
-            </button>
-          </div>
-        ))}
+        {loading ? (
+          <p className="client-list__loading-message">Загрузка...</p>
+        ) : error ? (
+          <p className="client-list__error-message">{error}</p>
+        ) : !Array.isArray(clients) || clients.length === 0 ? (
+          <p className="client-list__no-data-message">Нет клиентов для отображения.</p>
+        ) : (
+          filteredClients.map(client => (
+            <div className="client-list__card" key={client.id}>
+              <p className="client-list__card-name">{client.name}</p>
+              <button
+                className="client-list__card-button"
+                onClick={() => handleDelete(client.id)}
+                disabled={deletingClientId === client.id}
+              >
+                {deletingClientId === client.id ? "Удаление..." : "Удалить"}
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

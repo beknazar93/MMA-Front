@@ -5,23 +5,25 @@ import Analitic from "./Analitic/Analitic";
 import Register from "../Auth/Register";
 import WhatsAppChat from "../AdminPage/Chat/WhatsAppQR";
 import {
-  FaBars,
+  FaChevronLeft,
+  FaChevronRight,
   FaUsers,
   FaChartBar,
   FaBox,
   FaUserPlus,
   FaWhatsapp,
 } from "react-icons/fa";
+import Logo from "../../mma.png";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("ClientManager");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const tabs = [
-    { name: "ClientManager", icon: <FaUsers /> },
-    { name: "Analitic", icon: <FaChartBar /> },
-    { name: "Products", icon: <FaBox /> },
-    { name: "Register", icon: <FaUserPlus /> },
-    { name: "WhatsApp", icon: <FaWhatsapp /> },
+    { name: "ClientManager", icon: <FaUsers />, label: "Клиенты" },
+    { name: "Analitic", icon: <FaChartBar />, label: "Аналитика" },
+    { name: "Products", icon: <FaBox />, label: "Продукты" },
+    { name: "Register", icon: <FaUserPlus />, label: "Регистрация" },
+    { name: "WhatsApp", icon: <FaWhatsapp />, label: "WhatsApp" },
   ];
 
   const toggleSidebar = () => {
@@ -48,28 +50,45 @@ const AdminPanel = () => {
   return (
     <div className="admin-panel">
       <div
-        className={`custom-sidebar ${
-          isSidebarCollapsed ? "custom-sidebar--collapsed" : ""
+        className={`admin-panel__sidebar ${
+          isSidebarCollapsed ? "admin-panel__sidebar--collapsed" : ""
         }`}
       >
-        <button className="toggle-sidebar" onClick={toggleSidebar}>
-          <FaBars />
+        <div className="admin-panel__sidebar-logo">
+          <div className="admin-panel__sidebar-logo-circle">
+            <img
+              src={Logo}
+              alt="Logo"
+              className="admin-panel__sidebar-logo-image"
+            />
+          </div>
+        </div>
+        <button className="admin-panel__sidebar-toggle" onClick={toggleSidebar}>
+          {isSidebarCollapsed ? (
+            <FaChevronRight className="admin-panel__sidebar-toggle-icon" />
+          ) : (
+            <FaChevronLeft className="admin-panel__sidebar-toggle-icon" />
+          )}
         </button>
-        <ul className="custom-sidebar__list">
+        <ul className="admin-panel__sidebar-list">
           {tabs.map((tab) => (
             <li
               key={tab.name}
-              className={`custom-sidebar__item ${
-                activeTab === tab.name ? "custom-sidebar__item--active" : ""
+              className={`admin-panel__sidebar-item ${
+                activeTab === tab.name ? "admin-panel__sidebar-item--active" : ""
               }`}
               onClick={() => setActiveTab(tab.name)}
             >
-              {isSidebarCollapsed ? tab.icon : tab.name}
+              <span className="admin-panel__sidebar-item-icon">{tab.icon}</span>
+              {!isSidebarCollapsed && (
+                <span className="admin-panel__sidebar-item-label">
+                  {tab.label}
+                </span>
+              )}
             </li>
           ))}
         </ul>
       </div>
-
       <div className="admin-panel__content">{renderContent()}</div>
     </div>
   );

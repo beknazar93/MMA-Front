@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUser, FaEnvelope, FaLock, FaUserTag } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { FaUser, FaLock, FaUserTag } from "react-icons/fa";
 
 const errorMessages = {
   "A user with that username already exists.":
@@ -20,7 +20,7 @@ const translateError = (error) => {
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
+    email: "abytov247@gmail.com", // Фиксированный email
     password: "",
     role: "employee",
   });
@@ -82,17 +82,6 @@ const Register = () => {
           name="username"
           placeholder="Имя пользователя"
           value={formData.username}
-          onChange={handleInputChange}
-          className="registration-form__input"
-        />
-      </div>
-      <div className="registration-form__input-container">
-        <FaEnvelope className="registration-form__icon" />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
           onChange={handleInputChange}
           className="registration-form__input"
         />

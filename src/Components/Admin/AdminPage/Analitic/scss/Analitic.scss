@@ -1,75 +1,92 @@
-:root {
-  --primary-bg: #1a1a1a;
-  --text-color: #dcdcdc;
-  --text-secondary: #b3b3b3;
-  --active-item: #151515;
-  --border-color: #2a2a2a;
-  --shadow-color: rgba(0, 0, 0, 0.8);
-}
-
 .analitic {
-  padding: 20px;
-  color: var(--text-color);
+  padding: 16px;
+  color: #dcdcdc;
   min-height: 100vh;
 
   &__tabs {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
   &__tab {
-    width: 200px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1e1e2f;
-    color: var(--text-secondary);
-    font-size: 16px;
+    padding: 10px 16px;
+    background-color: #2a2a2a;
+    color: #b3b3b3;
+    font-size: 14px;
     font-weight: 500;
-    text-align: center;
-    border-radius: 8px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 5px var(--shadow-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 
     &:hover {
       background-color: #4a90e2;
-      color: var(--text-color);
-      transform: translateY(-3px);
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     &--active {
       background-color: #4a90e2;
-      color: var(--text-color);
-      font-weight: bold;
-      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.15);
     }
   }
 
   &__content {
-background-color: #1e1e2f;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: inset 0 0 10px var(--shadow-color);
+    background-color: #1e1e2f;
+    padding: 16px;
+    border-radius: 6px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7);
   }
 }
 
-
 @media (max-width: 768px) {
-  .analitic__tab {
-    width: 150px;
-    height: 80px;
-    font-size: 14px;
+  .analitic {
+    padding: 12px;
+
+    &__tab {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    &__content {
+      padding: 12px;
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .analitic__tab {
-    width: 100%;
-    height: 60px;
-    font-size: 12px;
+  .analitic {
+    padding: 10px;
+
+    &__tab {
+      width: calc(50% - 4px);
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    &__content {
+      padding: 10px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .analitic {
+    padding: 8px;
+
+    &__tab {
+      width: 100%;
+      padding: 6px;
+      font-size: 11px;
+    }
+
+    &__content {
+      padding: 8px;
+    }
   }
 }

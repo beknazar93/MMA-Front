@@ -1,0 +1,226 @@
+.client-list__buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.client-list__button {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.client-list__button.active {
+  background: #3a78c2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.client-list__button:hover {
+  background: #3a78c2;
+  transform: translateY(-2px);
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+  color: #e0e0e0;
+}
+
+.client-list__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  background: #4a90e2;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 8px;
+  padding: 0 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.client-list__button.active .client-list__counter {
+  background: #3a78c2;
+  transform: scale(1.1);
+}
+
+.client-list__counter:empty {
+  display: none;
+}
+
+
+
+
+.client-list__card-button {
+  background-color: #dc3545;
+  color: #f1f1f1;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    .client-list__card-button {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .client-list__card-button {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .client-list__card-button {
+      padding: 3px 6px;
+      font-size: 10px;
+    }
+  }
+}
+
+
+
+
+
+
+.revenue-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #1e1e2f;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.revenue-dashboard__filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.revenue-dashboard__select {
+  background: #2a2a3b;
+  color: #e0e0e0;
+  border: 1px solid #4a90e2;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 150px;
+}
+
+.revenue-dashboard__select:hover {
+  border-color: #3a78c2;
+  box-shadow: 0 0 8px rgba(0, 222, 255, 0.3);
+}
+
+.revenue-dashboard__select:focus {
+  border-color: #3a78c2;
+  box-shadow: 0 0 8px rgba(0, 222, 255, 0.5);
+}
+
+.revenue-dashboard__circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, #4a90e2, #3a78c2);
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s;
+}
+
+.revenue-dashboard__circle:hover {
+  transform: scale(1.05);
+}
+
+.revenue-dashboard__amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.revenue-dashboard__clients {
+  font-size: 18px;
+  font-weight: 500;
+  color: #e0e0e0;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.revenue-dashboard__label {
+  font-size: 16px;
+  color: #e0e0e0;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.revenue-dashboard__loading,
+.revenue-dashboard__error {
+  color: #e0e0e0;
+  font-size: 18px;
+}
+
+.client-form__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.client-form__input.error,
+.client-form__select.error {
+  border: 2px solid red !important;
+}
+.client-form__error-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+}
+.client-form__input,
+.client-form__select {
+  padding-right: 28px;
+  width: 100%;
+}
+.client-form__textarea {
+  width: 100%;
+}

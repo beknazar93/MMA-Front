@@ -1,69 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { fetchClients } from "../../api/API";
-import FilterComponent from "./ClientFilter";
 
-function ClientsTable() {
+function ClientStatus() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filters, setFilters] = useState({
-    name: "",
-    trainer: "",
-    sport_category: "",
-    day: "",
-    month: "",
-    year: "",
-    payment: "",
-  });
-
+  const [viewMode, setViewMode] = useState("new");
   const [selectedClient, setSelectedClient] = useState(null);
 
-  const trainers = [
-    "Абдыкадыров Султан",
-    "Азизбек Уулу Баяман",
-    "Асанбаев Эрлан",
-    "Жумалы Уулу Ариет",
-    "Калмамат Уулу Акай",
-    "Лукас Крабб",
-    "Машрапов Жумабай",
-    "Машрапов Тилек",
-    "Медербек Уулу Сафармурат",
-    "Минбаев Сулайман",
-    "Мойдунов Мирлан",
-    "Пазылов Кутман",
-    "Тажибаев Азамат",
-    "Тургунов Ислам",
-  ];
-
-  const sports = [
-    "Бокс",
-    "Борьба",
-    "Греко-римская борьба",
-    "Дзюдо",
-    "Кикбокс",
-    "Кроссфит",
-    "Кулату",
-    "Самбо",
-    "Тхэквондо",
-  ];
-
-  const months = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ];
-
-  const years = useMemo(() => Array.from({ length: 1 }, (_, i) => 2025 - i), []);
-  const days = useMemo(() => Array.from({ length: 31 }, (_, i) => (i + 1).toString()), []);
+  const currentMonth = "Май";
+  const currentYear = "2025";
+  const previousMonth = "Апрель";
 
   const loadClients = useCallback(async () => {
     try {
@@ -72,7 +19,7 @@ function ClientsTable() {
       setClients(clientsData);
       setError(null);
     } catch (error) {
-      setError("Ошибка загрузки данных клиентов.");
+      setError("Ошибка загрузки данных.");
     } finally {
       setLoading(false);
     }
@@ -82,60 +29,103 @@ function ClientsTable() {
     loadClients();
   }, [loadClients]);
 
-  const filteredClients = useMemo(() => {
-    return clients
-      .filter((client) => {
-        return (
-          (!filters.name || client.name.toLowerCase().includes(filters.name.toLowerCase())) &&
-          (!filters.trainer || client.trainer === filters.trainer) &&
-          (!filters.sport_category || client.sport_category === filters.sport_category) &&
-          (!filters.day || client.day === filters.day) &&
-          (!filters.month || client.month === filters.month) &&
-          (!filters.year || client.year === filters.year) &&
-          (!filters.payment || client.payment === filters.payment)
-        );
-      })
-      .reverse();
-  }, [clients, filters]);
+  const newClients = useMemo(() => {
+    const currentClients = clients.filter(
+      (c) => c.month === currentMonth && c.year === currentYear
+    );
+
+    const currentClientSet = new Set(
+      currentClients.map((c) => `${c.name.toLowerCase()}|${c.sport_category}`)
+    );
+
+    return currentClients.filter((client) => {
+      const clientKey = `${client.name.toLowerCase()}|${client.sport_category}`;
+      const hasPreviousRecords = clients.some(
+        (c) =>
+          c.name.toLowerCase() === client.name.toLowerCase() &&
+          c.sport_category === client.sport_category &&
+          (c.year < currentYear || (c.year === currentYear && c.month !== currentMonth))
+      );
+      return !hasPreviousRecords && currentClientSet.has(clientKey);
+    });
+  }, [clients, currentMonth, currentYear]);
+
+  const notAddedClients = useMemo(() => {
+    const previousClients = clients.filter(
+      (c) => c.month === previousMonth && c.year === currentYear
+    );
+
+    const previousClientSet = new Set(
+      previousClients.map((c) => `${c.name.toLowerCase()}|${c.sport_category}`)
+    );
+
+    return previousClients.filter((client) => {
+      const clientKey = `${client.name.toLowerCase()}|${client.sport_category}`;
+      const hasCurrentRecord = clients.some(
+        (c) =>
+          c.name.toLowerCase() === client.name.toLowerCase() &&
+          c.sport_category === client.sport_category &&
+          c.month === currentMonth &&
+          c.year === currentYear
+      );
+      return !hasCurrentRecord && previousClientSet.has(clientKey);
+    });
+  }, [clients, currentMonth, previousMonth, currentYear]);
 
   const getClientActivePeriods = useMemo(() => {
     if (!selectedClient) return { count: 0, periods: [] };
-    
-    const clientRecords = clients.filter(client => 
-      client.name.toLowerCase() === selectedClient.name.toLowerCase()
+
+    const clientRecords = clients.filter(
+      (c) =>
+        c.name.toLowerCase() === selectedClient.name.toLowerCase() &&
+        c.sport_category === selectedClient.sport_category
     );
     const uniquePeriods = new Set(
       clientRecords
-        .filter(client => client.month && client.year)
-        .map(client => `${client.month} ${client.year}`)
+        .filter((client) => client.month && client.year)
+        .map((client) => `${client.month} ${client.year}`)
     );
-    
+
     return {
       count: uniquePeriods.size,
-      periods: Array.from(uniquePeriods)
+      periods: Array.from(uniquePeriods),
     };
   }, [selectedClient, clients]);
 
+  const displayedClients = viewMode === "new" ? newClients : notAddedClients;
+
   return (
     <div className="client-list">
-      <FilterComponent
-        filters={filters}
-        setFilters={setFilters}
-        trainers={trainers}
-        sports={sports}
-        months={months}
-        years={years}
-        days={days}
-      />
+      <div className="client-list__buttons">
+        <button
+          className={`client-list__button ${viewMode === "new" ? "active" : ""}`}
+          onClick={() => setViewMode("new")}
+        >
+          Новые
+          {viewMode === "new" && (
+            <span className="client-list__counter">{newClients.length}</span>
+          )}
+        </button>
+        <button
+          className={`client-list__button ${viewMode === "not_added" ? "active" : ""}`}
+          onClick={() => setViewMode("not_added")}
+        >
+          Не добавленные
+        </button>
+      </div>
 
       {loading ? (
-        <p className="client-list__loading-message">Загрузка клиентов...</p>
+        <p className="client-list__loading-message">Загрузка...</p>
       ) : error ? (
         <p className="client-list__error-message">{error}</p>
+      ) : displayedClients.length === 0 ? (
+        <p className="client-list__no-data-message">
+          {viewMode === "new" ? "Нет новых клиентов" : "Нет не добавленных клиентов"}
+        </p>
       ) : (
         <div className="client-list__cards">
-          {filteredClients.map((client) => (
-            <div className="client-list__card" key={client.id}>
+          {displayedClients.map((client) => (
+            <div className="client-list__card" key={`${client.id}-${client.sport_category}`}>
               <p
                 className="client-list__card-name"
                 onClick={() => setSelectedClient(client)}
@@ -226,4 +216,4 @@ function ClientsTable() {
   );
 }
 
-export default ClientsTable;
+export default ClientStatus;

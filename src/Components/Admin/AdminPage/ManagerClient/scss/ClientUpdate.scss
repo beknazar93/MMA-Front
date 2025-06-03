@@ -1,110 +1,357 @@
+.client-list {
+  &__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
 
-.client-modal__content {
-  position: relative;
-}
+    &--pin {
+      z-index: 1001;
+    }
 
-.client-modal__title {
-  margin: 0 0 10px;
-  font-size: 18px;
-  color: #f1f1f1;
-  text-align: left;
-}
+    &-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #f1f1f1;
+      text-align: left;
+    }
 
-.client-modal__form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+    &-form {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
 
-.client-modal__input,
-.client-modal__select,
-.client-modal__textarea {
-  background-color: #2a2a3b;
-  border: 1px solid #3a3a4b;
-  border-radius: 6px;
-  padding: 8px;
-  font-size: 14px;
-  color: #e0e0e0;
-  outline: none;
-  transition: border-color 0.3s;
-}
+    &-input,
+    &-select,
+    &-textarea {
+      background-color: #2a2a3b;
+      border: 1px solid #4a90e2;
+      border-radius: 4px;
+      padding: 5px 6px;
+      font-size: 12px;
+      color: #e0e0e0;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+      height: 30px;
 
-.client-modal__input:focus,
-.client-modal__select:focus,
-.client-modal__textarea:focus {
-  border-color: #6b7280;
-}
+      &:focus {
+        border-color: #3a78c2;
+        box-shadow: 0 0 5px rgba(0, 222, 255, 0.5);
+      }
 
-.client-modal__select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23bbb'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 12px;
-}
+      &:disabled {
+        background-color: #3a3a4b;
+        cursor: not-allowed;
+      }
+    }
 
-.client-modal__textarea {
-  min-height: 50px;
-  resize: vertical;
-}
+    &-input--price {
+      padding-right: 25px;
+      height: 30px;
 
-.client-modal__actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
+      &:focus {
+        border-color: #4a90e2;
+        box-shadow: none;
+      }
+    }
 
-.client-modal__button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    &-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23bbb'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 5px center;
+      background-size: 8px;
+      height: 30px;
+      padding-right: 20px; // Увеличено для учета иконки замка
 
-.client-modal__button--save {
-  background-color: #28a745;
-  color: #f1f1f1;
-}
+      &:disabled {
+        background-image: none; // Убираем стрелку для заблокированного select
+      }
+    }
 
-.client-modal__button--save:hover {
-  background-color: #218838;
-}
+    &-textarea {
+      min-height: 35px;
+      resize: vertical;
+    }
 
-.client-modal__button--cancel {
-  background-color: #dc3545;
-  color: #f1f1f1;
-}
+    &-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
 
-.client-modal__button--cancel:hover {
-  background-color: #c82333;
-}
+    &-button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
 
-.client-modal__close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #bbb;
-  transition: color 0.3s;
-}
+      &--save {
+        background-color: #28a745;
+        color: #f1f1f1;
 
-.client-modal__close:hover {
-  color: #f1f1f1;
-}
+        &:hover {
+          background-color: #218838;
+          transform: translateY(-2px);
+        }
+      }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
+      &--cancel {
+        background-color: #dc3545;
+        color: #f1f1f1;
+
+        &:hover {
+          background-color: #c82333;
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    &-close {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #bbb;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #f1f1f1;
+      }
+    }
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+
+  &__price-field,
+  &__sale-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__unlock-icon {
+    position: absolute;
+    right: 20px; // Сдвинуто для учета стрелки select
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: stroke 0.3s;
+
+    &:hover {
+      stroke: #3a78c2;
+    }
+  }
+
+  &__error-message {
+    color: #dc3545;
+    font-size: 10px;
+    margin: 4px 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    &__cards {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+    }
+
+    &__card {
+      padding: 4px;
+    }
+
+    &__card-name {
+      font-size: 15px;
+      padding: 6px 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+
+    &__cards {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 6px;
+    }
+
+    &__card {
+      padding: 3px;
+    }
+
+    &__card-name {
+      font-size: 14px;
+      padding: 5px 0;
+    }
+
+    &__modal {
+      padding: 10px;
+
+      &-content {
+        max-width: 85%;
+        padding: 12px;
+      }
+
+      &-title {
+        font-size: 16px;
+      }
+
+      &-form {
+        gap: 6px;
+      }
+
+      &-input,
+      &-select,
+      &-textarea {
+        padding: 5px 7px;
+        font-size: 12px;
+      }
+
+      &-select {
+        background-position: right 5px center;
+        background-size: 9px;
+      }
+
+      &-button {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      &-close {
+        font-size: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px;
+
+    &__cards {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    &__card {
+      padding: 3px;
+    }
+
+    &__card-name {
+      font-size: 13px;
+      padding: 4px 0;
+    }
+
+    &__modal {
+      padding: 8px;
+
+      &-content {
+        max-width: 90%;
+        padding: 10px;
+      }
+
+      &-title {
+        font-size: 15px;
+      }
+
+      &-form {
+        gap: 5px;
+      }
+
+      &-input,
+      &-select,
+      &-textarea {
+        padding: 4px 6px;
+        font-size: 11px;
+      }
+
+      &-select {
+        background-position: right 4px center;
+        background-size: 8px;
+      }
+
+      &-button {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+
+      &-close {
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media (max-width: 320px) {
+    padding: 6px;
+
+    &__cards {
+      gap: 4px;
+    }
+
+    &__card {
+      padding: 2px;
+    }
+
+    &__card-name {
+      font-size: 12px;
+      padding: 3px 0;
+    }
+
+    &__modal {
+      padding: 6px;
+
+      &-content {
+        padding: 8px;
+      }
+
+      &-title {
+        font-size: 14px;
+      }
+
+      &-form {
+        gap: 4px;
+      }
+
+      &-input,
+      &-select,
+      &-textarea {
+        padding: 3px 5px;
+        font-size: 10px;
+      }
+
+      &-select {
+        background-position: right 3px center;
+        background-size: 7px;
+      }
+
+      &-button {
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+
+      &-close {
+        font-size: 14px;
+        top: 6px;
+        right: 6px;
+      }
+    }
   }
 }

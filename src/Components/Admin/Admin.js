@@ -7,6 +7,8 @@ import AdminManager from "./AdminPage/ManagerClient/AdminManager";
 import ProductTabs from "./AdminPage/Product/ProductTabs";
 import WhatsAppQR from "./AdminPage/Chat/WhatsAppQR";
 
+
+
 function Admin() {
   return (
     <div className="admin">

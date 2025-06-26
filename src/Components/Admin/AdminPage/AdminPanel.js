@@ -1,47 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import AdminManager from "./ManagerClient/AdminManager";
-import ProductTabs from "./Product/ProductTabs";
+import ProductTabs from "./Product/ProductTabs/ProductTabs";
 import Analitic from "./Analitic/Analitic";
 import Register from "../Auth/Register";
-import WhatsAppChat from "../AdminPage/Chat/WhatsAppQR";
+import Notes from "./Notes/Notes";
 import {
-  FaChevronLeft,
-  FaChevronRight,
   FaUsers,
   FaChartBar,
   FaBox,
   FaUserPlus,
-  FaWhatsapp,
+  FaNotesMedical,
+  FaAngleLeft,
+  FaAngleRight,
 } from "react-icons/fa";
 import Logo from "../../mma.png";
+import "./AdminPanel.scss";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("ClientManager");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const tabs = [
-    { name: "ClientManager", icon: <FaUsers />, label: "Клиенты" },
-    { name: "Analitic", icon: <FaChartBar />, label: "Аналитика" },
-    { name: "Products", icon: <FaBox />, label: "Продукты" },
-    { name: "Register", icon: <FaUserPlus />, label: "Регистрация" },
-    { name: "WhatsApp", icon: <FaWhatsapp />, label: "WhatsApp" },
-  ];
+  const userRole = localStorage.getItem("role") || "client_manager";
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
+  const allTabs = useMemo(
+    () => [
+      {
+        name: "ClientManager",
+        icon: <FaUsers />,
+        label: "Клиенты",
+        roles: ["admin", "client_manager"],
+      },
+      {
+        name: "Products",
+        icon: <FaBox />,
+        label: "Продукты",
+        roles: ["admin", "product_manager", "client_manager"],
+      },
+      {
+        name: "Notes",
+        icon: <FaNotesMedical />,
+        label: "Заметки",
+        roles: ["admin", "client_manager", "product_manager"],
+      },
+      {
+        name: "Analitic",
+        icon: <FaChartBar />,
+        label: "Аналитика",
+        roles: ["admin"],
+      },
+      {
+        name: "Register",
+        icon: <FaUserPlus />,
+        label: "Регистрация",
+        roles: ["admin"],
+      },
+    ],
+    []
+  );
+
+  const tabs = useMemo(
+    () => allTabs.filter((tab) => tab.roles.includes(userRole)),
+    [userRole]
+  );
+
+  useEffect(() => {
+    if (!tabs.some((tab) => tab.name === activeTab)) {
+      setActiveTab(tabs[0]?.name || "ClientManager");
+    }
+  }, [activeTab, tabs]);
+
   const renderContent = () => {
+    if (!tabs.some((tab) => tab.name === activeTab)) {
+      return <div className="admin-panel__access-denied">Доступ запрещен</div>;
+    }
+
     switch (activeTab) {
       case "ClientManager":
         return <AdminManager />;
-      case "Analitic":
-        return <Analitic />;
       case "Products":
         return <ProductTabs />;
+      case "Notes":
+        return <Notes />;
+      case "Analitic":
+        return <Analitic />;
       case "Register":
         return <Register />;
-      case "WhatsApp":
-        return <WhatsAppChat />;
       default:
         return null;
     }
@@ -58,26 +104,29 @@ const AdminPanel = () => {
           <div className="admin-panel__sidebar-logo-circle">
             <img
               src={Logo}
-              alt="Logo"
+              alt="MMA Logo"
               className="admin-panel__sidebar-logo-image"
             />
           </div>
         </div>
-        <button className="admin-panel__sidebar-toggle" onClick={toggleSidebar}>
-          {isSidebarCollapsed ? (
-            <FaChevronRight className="admin-panel__sidebar-toggle-icon" />
-          ) : (
-            <FaChevronLeft className="admin-panel__sidebar-toggle-icon" />
-          )}
+        <button
+          className="admin-panel__sidebar-toggle"
+          onClick={toggleSidebar}
+          aria-label="Переключить сайдбар"
+        >
+          {isSidebarCollapsed ? <FaAngleRight /> : <FaAngleLeft />}
         </button>
         <ul className="admin-panel__sidebar-list">
           {tabs.map((tab) => (
             <li
               key={tab.name}
               className={`admin-panel__sidebar-item ${
-                activeTab === tab.name ? "admin-panel__sidebar-item--active" : ""
+                activeTab === tab.name
+                  ? "admin-panel__sidebar-item--active"
+                  : ""
               }`}
               onClick={() => setActiveTab(tab.name)}
+              title={isSidebarCollapsed ? tab.label : ""}
             >
               <span className="admin-panel__sidebar-item-icon">{tab.icon}</span>
               {!isSidebarCollapsed && (

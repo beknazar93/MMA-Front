@@ -1,0 +1,213 @@
+.cassa {
+  background: #0a0a14;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e0e0f0;
+  display: flex;
+  justify-content: center;
+}
+
+.cassa__container {
+  max-width: 1400px;
+  width: 100%;
+}
+
+.cassa__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.cassa__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.cassa__subtitle {
+  font-size: 1rem;
+  color: #a0a0c0;
+}
+
+.cassa__filters {
+  background: #151526;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cassa__filter-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  align-items: center;
+}
+
+.cassa__select {
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  background: #1e1e33;
+  color: #e0e0f0;
+  border: 1px solid #2a2a4d;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.cassa__select:focus,
+.cassa__select:hover {
+  border-color: #00cc99;
+  background: #252540;
+  outline: none;
+}
+
+.cassa__reset-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: #ff4d4d;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.cassa__reset-btn:hover {
+  background: #e63939;
+  transform: translateY(-2px);
+}
+
+.cassa__error {
+  text-align: center;
+  color: #ff4d4d;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+
+.cassa__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #a0a0c0;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+
+.cassa__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid #00cc99;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.cassa__content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cassa__card {
+  background: #151526;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.cassa__card:hover {
+  transform: translateY(-5px);
+}
+
+.cassa__card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cassa__card-icon {
+  font-size: 1.75rem;
+}
+
+.cassa__card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.cassa__income {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.cassa__income-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #00cc99;
+}
+
+.cassa__income-unit {
+  font-size: 1.25rem;
+  color: #a0a0c0;
+}
+
+.cassa__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.cassa__split-item {
+  background: #1e1e33;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.cassa__split-label {
+  font-size: 1rem;
+  color: #a0a0c0;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.cassa__split-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .cassa {
+    padding: 1rem;
+  }
+
+  .cassa__title {
+    font-size: 2rem;
+  }
+
+  .cassa__filter-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cassa__card {
+    padding: 1.5rem;
+  }
+
+  .cassa__income-amount {
+    font-size: 2rem;
+  }
+}

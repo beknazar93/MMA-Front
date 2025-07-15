@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { fetchTotalTrainer } from "../../api/API";
 import { months, years } from "../../Constants/constants";
@@ -35,10 +36,12 @@ const Sport = () => {
           return { sport, income: Number(income) || 0 };
         })
       );
-      setIncomeData(incomes);
+      setIncomeData(incomes.filter(item => item.income > 0));
       setError(null);
     } catch (err) {
-      setError("Ошибка загрузки.");
+      console.error("Ошибка загрузки данных:", err);
+      setError("Не удалось загрузить данные");
+      setIncomeData([]);
     } finally {
       setLoading(false);
     }
@@ -58,9 +61,8 @@ const Sport = () => {
     setFilters(getCurrentMonthAndYear());
   };
 
+  const totalIncome = useMemo(() => incomeData.reduce((acc, item) => acc + item.income, 0), [incomeData]);
   const maxIncome = useMemo(() => Math.max(...incomeData.map(item => item.income), 1), [incomeData]);
-
-  if (error) return <p className="sport-income__error">{error}</p>;
 
   return (
     <div className="sport-income">
@@ -90,9 +92,9 @@ const Sport = () => {
           <button
             className="sport-income__reset-btn"
             onClick={resetFilters}
-            aria-label="Сбросить"
+            aria-label="Сбросить фильтры"
           >
-            🔄
+            Сбросить
           </button>
         </div>
       </div>
@@ -100,18 +102,24 @@ const Sport = () => {
         {loading ? (
           <div className="sport-income__loading">
             <span className="sport-income__loading-spinner"></span>
+            Загрузка...
           </div>
+        ) : error ? (
+          <div className="sport-income__error">{error}</div>
+        ) : incomeData.length === 0 ? (
+          <div className="sport-income__no-data">Нет данных</div>
         ) : (
           <div className="sport-income__bars">
             {incomeData.map((item, index) => (
               <div key={index} className="sport-income__bar-item">
                 <span className="sport-income__bar-label">{item.sport}</span>
-                <div
-                  className="sport-income__bar"
-                  style={{ width: `${Math.max((item.income / maxIncome) * 100, 10)}%` }}
-                  data-tooltip={`${item.income.toLocaleString()} сом`}
-                >
-                  <span className="sport-income__bar-value">{item.income.toLocaleString()}</span>
+                <div className="sport-income__bar-container">
+                  <span className="sport-income__bar-value">{item.income.toLocaleString()} сом</span>
+                  <div
+                    className="sport-income__bar"
+                    style={{ width: `${Math.max((item.income / maxIncome) * 100, 5)}%` }}
+                    data-tooltip={`${item.income.toLocaleString()} сом`}
+                  ></div>
                 </div>
               </div>
             ))}

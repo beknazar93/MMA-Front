@@ -52,12 +52,12 @@ const AdminManager = () => {
         >
           Разовый
         </button>
-        <button
+        {/* <button
           className={`admin-manager__nav-item ${activeSection === "status" ? "active" : ""}`}
           onClick={() => setActiveSection("status")}
         >
           Статус
-        </button>
+        </button> */}
       </div>
             {sections[activeSection]}
     </div>

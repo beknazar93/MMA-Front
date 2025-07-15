@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ClientIncome from "./ClientIncome/ClientIncome";
-import TrainerAnalytics from "./Trainer/TrainerAnalytics";
+import TrainerAnalytics from "./TrainerAnalytics/TrainerAnalytics";
 import Sport from "./Sport/Sport";
 import Dashboard from "./Dashboard/Dash";
 import './Analitic.scss';
@@ -8,6 +8,9 @@ import Cassa from "./Cassa/Cassa";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import AnaliticProducts from "./AnaliticProducts/AnaliticProducts";
+import ClientIncomeByDays from "./Dosh/Dosh";
+import Trainers from "./Trainers/Trainers";
+import ProductAnalytics from "./ProductAnalytics/ProductAnalytics";
 
 function Analitic() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -22,11 +25,13 @@ function Analitic() {
     };
 
   const tabs = [
-    { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
-    { name: "ClientIncome", label: "Общий доход", icon: "💸", component: <ClientIncome /> },
-    { name: "Sport", label: "Доход по спорту", icon: "🏀", component: <Sport /> },
-    { name: "TrainerAnalytics", label: "Доход тренеров", icon: "👥", component: <TrainerAnalytics /> },
-    { name: "Cassa", label: "Касса", icon: "👥", component: <Cassa /> },
+    // { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
+    // { name: "ClientIncome", label: "Общий доход", icon: "💸", component: <ClientIncome /> },
+    // { name: "Sport", label: "Доход по спорту", icon: "🏀", component: <Sport /> },
+    // { name: "TrainerAnalytics", label: "Доход тренеров", icon: "👥", component: <TrainerAnalytics /> },
+    { name: "Trainers", label: "Тренеры", icon: "👥", component: <Trainers /> },
+    { name: "Dosh", label: "Зарплата", icon: "👥", component: <ClientIncomeByDays /> },
+    { name: "Product", label: "Товар", icon: "👥", component: <ProductAnalytics /> },
     // { name: "Product", label: "Продукт", icon: "👥", component: <AnaliticProducts /> },
   ];
 

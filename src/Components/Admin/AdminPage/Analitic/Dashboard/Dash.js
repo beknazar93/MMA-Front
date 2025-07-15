@@ -64,18 +64,19 @@ const Dashboard = () => {
 
   const newClients = useMemo(() => {
     const currentClients = clients.filter(
-      (client) => client?.month === filters.month && client?.year === filters.year
+      (c) => c.month === filters.month && c.year === filters.year
     );
     const currentClientSet = new Set(
-      currentClients.map((client) => `${client?.name}|${client?.sport_category}`)
+      currentClients.map((c) => `${c.name.toLowerCase()}|${c.sport_category}`)
     );
     return currentClients.filter((client) => {
-      const clientKey = `${client?.name}|${client?.sport_category}`;
+      const clientKey = `${client.name.toLowerCase()}|${client.sport_category}`;
       const hasPreviousRecords = clients.some(
         (c) =>
-          c?.name === client?.name &&
-          c?.sport_category === client?.sport_category &&
-          (c?.year < filters.year || (c?.year === filters.year && months.indexOf(c?.month) < months.indexOf(filters.month)))
+          c.name.toLowerCase() === client.name.toLowerCase() &&
+          c.sport_category === client.sport_category &&
+          (c.year < filters.year ||
+            (c.year === filters.year && months.indexOf(c.month) < months.indexOf(filters.month)))
       );
       return !hasPreviousRecords && currentClientSet.has(clientKey);
     });
@@ -133,6 +134,7 @@ const Dashboard = () => {
               value={filters.month}
               onChange={handleFilterChange}
               className="dashboard__select"
+              aria-label="Выберите месяц"
             >
               <option value="">Месяц</option>
               {months.map((m) => <option key={m} value={m}>{m}</option>)}
@@ -142,6 +144,7 @@ const Dashboard = () => {
               value={filters.year}
               onChange={handleFilterChange}
               className="dashboard__select"
+              aria-label="Выберите год"
             >
               <option value="">Год</option>
               {years.map((y) => <option key={y} value={y}>{y}</option>)}
@@ -152,7 +155,6 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
-
       {loading ? (
         <div className="dashboard__loading">
           <span className="dashboard__loading-spinner"></span> Загрузка...
@@ -170,7 +172,6 @@ const Dashboard = () => {
               <span className="dashboard__revenue-count">{newClientsCount} новых клиентов</span>
             </div>
           </div>
-
           <div className="dashboard__card dashboard__card--students">
             <div className="dashboard__card-header">
               <span className="dashboard__card-icon">👥</span>
@@ -185,7 +186,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           <div className="dashboard__card dashboard__card--sources">
             <div className="dashboard__card-header">
               <span className="dashboard__card-icon">🌐</span>
@@ -203,7 +203,6 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-
           <div className="dashboard__card dashboard__card--gender">
             <div className="dashboard__card-header">
               <span className="dashboard__card-icon">⚥</span>
@@ -220,7 +219,6 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-
           <div className="dashboard__card dashboard__card--type-client">
             <div className="dashboard__card-header">
               <span className="dashboard__card-icon">👤</span>

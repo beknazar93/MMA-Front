@@ -73,6 +73,7 @@ import AddProduct from "../AddProduct/AddProduct";
 import ProductList from "../ProductsList/ProductsList";
 import ProductSell from "../ProductSell/ProductSell";
 import SoldProducts from "../SoldProduct/SoldProducts";
+import Att from "../AttendanceTracker";
 import { FaSignOutAlt } from "react-icons/fa";
 import './ProductTabs.scss';
 
@@ -127,7 +128,7 @@ const ProductTabs = () => {
         {activeTab === "list" && <ProductList />}
         {activeTab === "add" && <AddProduct />}
         {activeTab === "sell" && <ProductSell />}
-        {activeTab === "sold" && <SoldProducts />}
+        {activeTab === "sold" && <SoldProducts/>}
       </div>
     </div>
   );

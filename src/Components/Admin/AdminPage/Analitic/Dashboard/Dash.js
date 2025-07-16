@@ -9,10 +9,7 @@ const getCurrentMonthAndYear = () => {
 };
 
 const Dashboard = () => {
-  const [filters, setFilters] = useState({
-    month: getCurrentMonthAndYear().month,
-    year: getCurrentMonthAndYear().year,
-  });
+  const [filters, setFilters] = useState(getCurrentMonthAndYear());
   const [clients, setClients] = useState([]);
   const [students, setStudents] = useState(0);
   const [sourceData, setSourceData] = useState([]);
@@ -21,6 +18,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Загрузка данных с учетом фильтров
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -56,57 +54,71 @@ const Dashboard = () => {
   };
 
   const resetFilters = () => {
-    setFilters({
-      month: getCurrentMonthAndYear().month,
-      year: getCurrentMonthAndYear().year,
-    });
+    setFilters(getCurrentMonthAndYear());
   };
 
+  // Подсчет новых клиентов
   const newClients = useMemo(() => {
-    const currentClients = clients.filter(
-      (c) => c.month === filters.month && c.year === filters.year
-    );
+    const currentClients = clients.filter((c) => {
+      const clientDate = new Date(c.dataCassa);
+      return (
+        months[clientDate.getMonth()] === filters.month &&
+        clientDate.getFullYear().toString() === filters.year
+      );
+    });
     const currentClientSet = new Set(
       currentClients.map((c) => `${c.name.toLowerCase()}|${c.sport_category}`)
     );
     return currentClients.filter((client) => {
       const clientKey = `${client.name.toLowerCase()}|${client.sport_category}`;
-      const hasPreviousRecords = clients.some(
-        (c) =>
+      const hasPreviousRecords = clients.some((c) => {
+        const cDate = new Date(c.dataCassa);
+        return (
           c.name.toLowerCase() === client.name.toLowerCase() &&
           c.sport_category === client.sport_category &&
-          (c.year < filters.year ||
-            (c.year === filters.year && months.indexOf(c.month) < months.indexOf(filters.month)))
-      );
+          (cDate.getFullYear() < parseInt(filters.year) ||
+            (cDate.getFullYear().toString() === filters.year &&
+              months.indexOf(months[cDate.getMonth()]) < months.indexOf(filters.month)))
+        );
+      });
       return !hasPreviousRecords && currentClientSet.has(clientKey);
     });
   }, [clients, filters.month, filters.year]);
 
-  const totalRevenue = useMemo(() => {
-    return newClients.reduce((sum, client) => sum + (parseFloat(client?.price) || 0), 0);
-  }, [newClients]);
-
   const newClientsCount = useMemo(() => newClients.length, [newClients]);
 
+  // Подсчет источников
   const totalCount = useMemo(() => sourceData.reduce((sum, item) => sum + (Number(item?.count) || 0), 0), [sourceData]);
 
+  // Подсчет по полу
   const genderDataMemo = useMemo(() => {
     const genders = ["Мужской", "Женский"];
     return genders.map((gender) => ({
       gender,
-      count: clients.filter(
-        (client) => client?.month === filters.month && client?.year === filters.year && client?.stage === gender
-      ).length,
+      count: clients.filter((client) => {
+        const clientDate = new Date(client.dataCassa);
+        return (
+          clientDate.getFullYear().toString() === filters.year &&
+          months[clientDate.getMonth()] === filters.month &&
+          client?.stage === gender
+        );
+      }).length,
     }));
   }, [clients, filters.month, filters.year]);
 
+  // Подсчет по типам клиентов
   const typeClientDataMemo = useMemo(() => {
     const types = ["Обычный", "Пробный", "Индивидуальный", "Абонемент"];
     return types.map((type) => ({
       type,
-      count: clients.filter(
-        (client) => client?.month === filters.month && client?.year === filters.year && client?.typeClient === type
-      ).length,
+      count: clients.filter((client) => {
+        const clientDate = new Date(client.dataCassa);
+        return (
+          clientDate.getFullYear().toString() === filters.year &&
+          months[clientDate.getMonth()] === filters.month &&
+          client?.typeClient === type
+        );
+      }).length,
     }));
   }, [clients, filters.month, filters.year]);
 
@@ -116,16 +128,16 @@ const Dashboard = () => {
   }, [genderDataMemo, typeClientDataMemo]);
 
   const maxStudents = Math.max(students, 1);
-  const maxSource = Math.max(...sourceData.map(item => item.count), 1);
-  const maxGender = Math.max(...genderData.map(item => item.count), 1);
-  const maxTypeClient = Math.max(...typeClientData.map(item => item.count), 1);
+  const maxSource = Math.max(...sourceData.map((item) => item.count), 1);
+  const maxGender = Math.max(...genderData.map((item) => item.count), 1);
+  const maxTypeClient = Math.max(...typeClientData.map((item) => item.count), 1);
 
   if (error) return <p className="dashboard__error">Ошибка: {error}</p>;
 
   return (
     <div className="dashboard">
       <div className="dashboard__header">
-        <h1 className="dashboard__title">Аналитика</h1>
+        <h1 className="dashboard__title"></h1>
         <div className="dashboard__filters">
           <div className="dashboard__filter-group">
             <span className="dashboard__filter-icon">📅</span>
@@ -136,8 +148,9 @@ const Dashboard = () => {
               className="dashboard__select"
               aria-label="Выберите месяц"
             >
-              <option value="">Месяц</option>
-              {months.map((m) => <option key={m} value={m}>{m}</option>)}
+              <option value="" disabled>Месяц</option>
+              {months.map((m) => (
+              <option key={m} value={m}>{m}</option>))}
             </select>
             <select
               name="year"
@@ -146,8 +159,9 @@ const Dashboard = () => {
               className="dashboard__select"
               aria-label="Выберите год"
             >
-              <option value="">Год</option>
-              {years.map((y) => <option key={y} value={y}>{y}</option>)}
+              <option value="" disabled>Год</option>
+              {years.map((y) => (
+              <option key={y} value={y}>{y}</option>))}
             </select>
           </div>
           <button className="dashboard__reset-btn" onClick={resetFilters}>
@@ -167,8 +181,6 @@ const Dashboard = () => {
               <h2 className="dashboard__card-title">Доход</h2>
             </div>
             <div className="dashboard__revenue">
-              <span className="dashboard__revenue-amount">{totalRevenue.toLocaleString()}</span>
-              <span className="dashboard__revenue-unit">сом</span>
               <span className="dashboard__revenue-count">{newClientsCount} новых клиентов</span>
             </div>
           </div>

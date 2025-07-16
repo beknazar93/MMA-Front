@@ -25,12 +25,12 @@ function Analitic() {
     };
 
   const tabs = [
-    // { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
+    { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
     // { name: "ClientIncome", label: "Общий доход", icon: "💸", component: <ClientIncome /> },
     // { name: "Sport", label: "Доход по спорту", icon: "🏀", component: <Sport /> },
     // { name: "TrainerAnalytics", label: "Доход тренеров", icon: "👥", component: <TrainerAnalytics /> },
     { name: "Trainers", label: "Тренеры", icon: "👥", component: <Trainers /> },
-    { name: "Dosh", label: "Зарплата", icon: "👥", component: <ClientIncomeByDays /> },
+    { name: "Dosh", label: "Зарплата", icon: "💸", component: <ClientIncomeByDays /> },
     { name: "Product", label: "Товар", icon: "👥", component: <ProductAnalytics /> },
     // { name: "Product", label: "Продукт", icon: "👥", component: <AnaliticProducts /> },
   ];

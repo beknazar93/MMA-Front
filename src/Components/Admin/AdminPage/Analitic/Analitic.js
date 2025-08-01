@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import ClientIncome from "./ClientIncome/ClientIncome";
-import TrainerAnalytics from "./TrainerAnalytics/TrainerAnalytics";
 import Sport from "./Sport/Sport";
-import Dashboard from "./Dashboard/Dash";
+import Dashboard from "./Dashboard/Dashboard";
 import './Analitic.scss';
-import Cassa from "./Cassa/Cassa";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
-import AnaliticProducts from "./AnaliticProducts/AnaliticProducts";
-import ClientIncomeByDays from "./Dosh/Dosh";
+import ClientIncomeByDays from "./ClientIncomeByDays/ClientIncomeByDays";
 import Trainers from "./Trainers/Trainers";
 import ProductAnalytics from "./ProductAnalytics/ProductAnalytics";
+import ClientAnalytics from "./ClientAnalytics/ClientAnalytics";
+import ClientIncomeByDate from "./ClientIncomeByDate/ClientIncomeByDate";
 
 function Analitic() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -28,11 +26,11 @@ function Analitic() {
     { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
     // { name: "ClientIncome", label: "Общий доход", icon: "💸", component: <ClientIncome /> },
     // { name: "Sport", label: "Доход по спорту", icon: "🏀", component: <Sport /> },
-    // { name: "TrainerAnalytics", label: "Доход тренеров", icon: "👥", component: <TrainerAnalytics /> },
+    // { name: "TrainerAnalytics", label: "Доход по дате", icon: "👥", component: <ClientIncomeByDate /> },
     { name: "Trainers", label: "Тренеры", icon: "👥", component: <Trainers /> },
-    { name: "Dosh", label: "Зарплата", icon: "💸", component: <ClientIncomeByDays /> },
-    { name: "Product", label: "Товар", icon: "👥", component: <ProductAnalytics /> },
-    // { name: "Product", label: "Продукт", icon: "👥", component: <AnaliticProducts /> },
+    { name: "ClientIncomeByDays", label: "Зарплата", icon: "💸", component: <ClientIncomeByDays /> },
+    { name: "Product", label: "Продукт", icon: "👥", component: <ProductAnalytics /> },
+    { name: "Client", label: "Клиент", icon: "👥", component: <ClientAnalytics /> },
   ];
 
   const renderContent = () => {
@@ -49,7 +47,7 @@ function Analitic() {
               </button>
             </div>
       <div className="analitic__header">
-        <h1 className="analitic__title">Аналитика</h1>
+        <h1 className="analitic__title"></h1>
         <div className="analitic__tabs">
           {tabs.map((tab) => (
             <button

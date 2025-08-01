@@ -5,7 +5,7 @@ import Register from "./Auth/Register";
 import AdminPanel from "./AdminPage/AdminPanel";
 import AdminManager from "./AdminPage/ManagerClient/AdminManager";
 import ProductTabs from "./AdminPage/Product/ProductTabs/ProductTabs";
-import Dashboard from "./AdminPage/Analitic/Dashboard/Dash";
+import Dashboard from "./AdminPage/Analitic/Dashboard/Dashboard";
 
 function Admin() {
   return (

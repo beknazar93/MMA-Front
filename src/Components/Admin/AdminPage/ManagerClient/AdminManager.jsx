@@ -22,7 +22,7 @@ const AdminManager = () => {
     clients: <ClientsTable />,
     other: <AddClient />,
     dayclients: <DailyClients />,
-    status: <ClientStatus />,
+    // status: <ClientStatus />,
   };
 
   return (

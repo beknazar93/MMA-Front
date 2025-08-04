@@ -6,6 +6,7 @@ import DailyClients from "./DailyClients/DailyClients";
 import ClientStatus from "./ClientStatus/ClientStatus";
 import { FaSignOutAlt } from "react-icons/fa";
 import './AdminManager.scss';
+import LeadStages from "./LeadStages/LeadStages";
 
 const AdminManager = () => {
   const [activeSection, setActiveSection] = useState("clients");
@@ -22,7 +23,7 @@ const AdminManager = () => {
     clients: <ClientsTable />,
     other: <AddClient />,
     dayclients: <DailyClients />,
-    // status: <ClientStatus />,
+    // status: <LeadStages />,
   };
 
   return (

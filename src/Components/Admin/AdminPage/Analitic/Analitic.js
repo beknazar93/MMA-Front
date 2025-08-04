@@ -26,11 +26,11 @@ function Analitic() {
     { name: "Dashboard", label: "Клиенты", icon: "⚥", component: <Dashboard /> },
     // { name: "ClientIncome", label: "Общий доход", icon: "💸", component: <ClientIncome /> },
     // { name: "Sport", label: "Доход по спорту", icon: "🏀", component: <Sport /> },
-    // { name: "TrainerAnalytics", label: "Доход по дате", icon: "👥", component: <ClientIncomeByDate /> },
-    { name: "Trainers", label: "Тренеры", icon: "👥", component: <Trainers /> },
+    { name: "TrainerAnalytics", label: "Доход по дате", icon: "👥", component: <ClientIncomeByDate /> },
+    // { name: "Trainers", label: "Тренеры", icon: "👥", component: <Trainers /> },
     { name: "ClientIncomeByDays", label: "Зарплата", icon: "💸", component: <ClientIncomeByDays /> },
     { name: "Product", label: "Продукт", icon: "👥", component: <ProductAnalytics /> },
-    { name: "Client", label: "Клиент", icon: "👥", component: <ClientAnalytics /> },
+    // { name: "Client", label: "Клиент", icon: "👥", component: <ClientAnalytics /> },
   ];
 
   const renderContent = () => {

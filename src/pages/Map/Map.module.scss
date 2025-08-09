@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.map {
+  padding: 48px 24px;
+  text-align: center;
+  background: #f9fafb;
+  font-family: 'Inter', sans-serif;
+
+  &__container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 16px;
+  }
+
+  &__iframeWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-color: #3b82f6;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      border: none;
+    }
+  }
+
+  &__text {
+    font-size: 15px;
+    font-weight: 500;
+    color: #2d3748;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #3b82f6;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px 16px;
+
+    &__title {
+      font-size: 28px;
+    }
+
+    &__text {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 24px 12px;
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__iframeWrapper {
+      padding-bottom: 75%; /* Adjust for smaller screens */
+    }
+
+    &__text {
+      font-size: 13px;
+    }
+  }
+}

@@ -40,7 +40,7 @@ export const months = [
   "Ноябрь",
   "Декабрь",
 ];
-
+export const typeClients = ['Обычный', 'Пробный', 'Индивидуальный', 'Абонемент'];
 export const years = ["2025"];
 export const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 export const checkFieldOptions = ["От знакомых", "Из соцсетей"];

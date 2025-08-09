@@ -1,0 +1,76 @@
+/* Стили для компонента ClientManager */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.max-w-6xl {
+  max-width: 1200px;
+}
+
+.bg-gray-900 {
+  background-color: #1a1a2e;
+}
+
+.bg-gray-800 {
+  background-color: #22223b;
+}
+
+.border-gray-600 {
+  border-color: #2a2a4d;
+}
+
+.text-teal-400 {
+  color: #00cc99;
+}
+
+.bg-teal-500 {
+  background-color: #00cc99;
+}
+
+.bg-teal-500:hover {
+  background-color: #00b386;
+}
+
+.text-red-400 {
+  color: #ff6384;
+}
+
+.border-red-500 {
+  border-color: #ff6384;
+}
+
+.bg-gray-600 {
+  background-color: #4a4a6a;
+}
+
+.bg-gray-600:hover {
+  background-color: #3a3a5a;
+}
+
+.transition {
+  transition: all 0.2s ease;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .md\\:grid-cols-2, .md\\:grid-cols-3, .md\\:grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .max-w-6xl {
+    padding: 0.5rem;
+  }
+}

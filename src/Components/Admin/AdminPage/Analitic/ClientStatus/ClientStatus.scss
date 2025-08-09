@@ -1,0 +1,249 @@
+.client-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: #0f0f1a;
+  min-height: 100vh;
+  color: #d1d1e0;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  &__filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  &__label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #ffffff;
+    flex: 0 0 100px;
+  }
+
+  &__select {
+    background: #22223b;
+    color: #d1d1e0;
+    border: 1px solid #2a2a4d;
+    border-radius: 4px;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#d1d1e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.4rem center;
+    background-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover, &:focus {
+      border-color: #00cc99;
+    }
+
+    option {
+      background: #22223b;
+      color: #d1d1e0;
+    }
+  }
+
+  &__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #00cc99;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
+  }
+
+  &__error {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0.5rem 0;
+    color: #ff6384;
+  }
+
+  &__results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  &__section {
+    flex: 1;
+    min-width: 250px;
+    background: #1a1a2e;
+    border: 1px solid #2a2a4d;
+    border-radius: 4px;
+    padding: 0.6rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  &__subtitle {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #2a2a4d;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    color: #d1d1e0;
+  }
+
+  &__item {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #2a2a4d;
+    transition: background 0.15s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #2a2a4d;
+    }
+  }
+
+  &__action {
+    background: #00cc99;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    width: 100%;
+    text-align: left;
+
+    &:hover {
+      background: #00b386;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__sublist {
+    list-style: none;
+    padding: 0.4rem 0 0.4rem 1rem;
+    margin-top: 0.3rem;
+    border-left: 2px solid #00cc99;
+  }
+
+  &__subitem {
+    font-size: 0.75rem;
+    color: #d1d1e0;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #2a2a4d;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem;
+
+    &__title {
+      font-size: 1.2rem;
+    }
+
+    &__filter {
+      min-width: 180px;
+    }
+
+    &__label, &__select, &__subtitle {
+      font-size: 0.75rem;
+    }
+
+    &__action, &__item, &__subitem {
+      font-size: 0.7rem;
+      padding: 0.3rem 0;
+    }
+
+    &__spinner {
+      width: 14px;
+      height: 14px;
+    }
+
+    &__error {
+      font-size: 0.75rem;
+    }
+
+    &__section {
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+
+    &__title {
+      font-size: 1rem;
+    }
+
+    &__filters {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &__filter {
+      min-width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__label, &__select, &__subtitle {
+      font-size: 0.7rem;
+    }
+
+    &__action, &__item, &__subitem {
+      font-size: 0.65rem;
+      padding: 0.2rem 0;
+    }
+
+    &__spinner {
+      width: 12px;
+      height: 12px;
+    }
+
+    &__error {
+      font-size: 0.7rem;
+    }
+
+    &__section {
+      padding: 0.4rem;
+    }
+  }
+}

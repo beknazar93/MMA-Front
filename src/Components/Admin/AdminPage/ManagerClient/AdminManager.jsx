@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import AddClient from "./AddClient/AddClient";
 import ClientsTable from "./ClientTable/ClientsTable";
 import DailyClients from "./DailyClients/DailyClients";
-import ClientStatus from "./ClientStatus/ClientStatus";
 import { FaSignOutAlt } from "react-icons/fa";
 import './AdminManager.scss';
-import LeadStages from "./LeadStages/LeadStages";
+import DuplicateClients from "./DuplicateClients/DuplicateClients";
 
 const AdminManager = () => {
   const [activeSection, setActiveSection] = useState("clients");
@@ -23,7 +22,7 @@ const AdminManager = () => {
     clients: <ClientsTable />,
     other: <AddClient />,
     dayclients: <DailyClients />,
-    // status: <LeadStages />,
+    status: <DuplicateClients />,
   };
 
   return (
@@ -53,12 +52,12 @@ const AdminManager = () => {
         >
           Разовый
         </button>
-        {/* <button
+        <button
           className={`admin-manager__nav-item ${activeSection === "status" ? "active" : ""}`}
           onClick={() => setActiveSection("status")}
         >
-          Статус
-        </button> */}
+          Дубликаты
+        </button>
       </div>
             {sections[activeSection]}
     </div>

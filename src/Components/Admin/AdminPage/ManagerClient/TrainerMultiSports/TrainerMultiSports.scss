@@ -1,0 +1,119 @@
+.trainer-multi-sports {
+  padding: 1.2rem;
+  background: #0f0f1a;
+  min-height: 100vh;
+  color: #d1d1e0;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  &__spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #00cc99;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+  }
+
+  &__error {
+    font-size: 1.1rem;
+    color: #ff6384;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  &__item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #2a2a4d;
+    transition: background 0.2s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #2a2a4d;
+    }
+  }
+
+  &__action {
+    background: #00cc99;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    width: 100%;
+    text-align: left;
+    text-transform: uppercase;
+
+    &:hover {
+      background: #00b386;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 204, 153, 0.3);
+    }
+  }
+
+  &__sublist {
+    list-style: none;
+    padding: 0.6rem 0 0.6rem 1.2rem;
+    margin-top: 0.4rem;
+    border-left: 3px solid #00cc99;
+  }
+
+  &__subitem {
+    font-size: 0.9rem;
+    color: #d1d1e0;
+    font-weight: 500;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #2a2a4d;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__no-data {
+    font-size: 1.2rem;
+    color: #d1d1e0;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.8rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__action, &__subitem {
+      font-size: 0.9rem;
+    }
+  }
+}

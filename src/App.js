@@ -4,6 +4,7 @@ import Main from "./Components/Main/Main";
 import Footer from "./Components/Footer/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./Components/Admin/Admin";
+import WhatsAppBot from "./WhatsAppBot/WhatsAppBot";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={ <> <Header /> <hr /> <Main /> </> } />
           <Route path="/admin/*" element={<Admin />} />
+          <Route path="/what" element={<WhatsAppBot />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>

@@ -1,0 +1,66 @@
+.client-validator {
+  padding: 1.2rem;
+  background: #0f0f1a;
+  min-height: 100vh;
+  color: #d1d1e0;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  &__spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #00cc99;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+  }
+
+  &__error {
+    font-size: 1.1rem;
+    color: #ff6384;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    color: #ffffff;
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #2a2a4d;
+      text-align: left;
+    }
+
+    th {
+      background: #1a1a2e;
+      font-weight: 600;
+    }
+
+    tbody tr:hover {
+      background: #2a2a4d;
+    }
+  }
+
+  &__no-errors {
+    font-size: 1.2rem;
+    color: #00cc99;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

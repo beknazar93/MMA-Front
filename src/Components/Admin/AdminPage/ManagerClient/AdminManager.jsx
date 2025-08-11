@@ -4,9 +4,11 @@ import AddClient from "./AddClient/AddClient";
 import ClientsTable from "./ClientTable/ClientsTable";
 import DailyClients from "./DailyClients/DailyClients";
 import { FaSignOutAlt } from "react-icons/fa";
-import './AdminManager.scss';
+import "./AdminManager.scss";
 import DuplicateClients from "./DuplicateClients/DuplicateClients";
 import ClientStatus from "./ClientStatus/ClientStatus";
+import ClientValidator from "./ClientValidator/ClientValidator";
+import TrainerMultiSports from "./TrainerMultiSports/TrainerMultiSports";
 
 const AdminManager = () => {
   const [activeSection, setActiveSection] = useState("clients");
@@ -25,50 +27,81 @@ const AdminManager = () => {
     dayclients: <DailyClients />,
     status: <ClientStatus />,
     duplicate: <DuplicateClients />,
-
+    validator: <ClientValidator />,
+    trainer: <TrainerMultiSports />,
   };
 
   return (
     <div className="admin-manager">
       <div className="admin-manager__header">
         <span className="admin-manager__manager-name">{managerName}</span>
-        <button className="admin-manager__logout-btn" onClick={handleLogout} aria-label="Выйти">
+        <button
+          className="admin-manager__logout-btn"
+          onClick={handleLogout}
+          aria-label="Выйти"
+        >
           <FaSignOutAlt />
         </button>
       </div>
       <div className="admin-manager__nav">
         <button
-          className={`admin-manager__nav-item ${activeSection === "clients" ? "active" : ""}`}
+          className={`admin-manager__nav-item ${
+            activeSection === "clients" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("clients")}
         >
           Список
         </button>
         <button
-          className={`admin-manager__nav-item ${activeSection === "other" ? "active" : ""}`}
+          className={`admin-manager__nav-item ${
+            activeSection === "other" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("other")}
         >
           Добавление
         </button>
         <button
-          className={`admin-manager__nav-item ${activeSection === "dayclients" ? "active" : ""}`}
+          className={`admin-manager__nav-item ${
+            activeSection === "dayclients" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("dayclients")}
         >
           Разовый
         </button>
         <button
-          className={`admin-manager__nav-item ${activeSection === "status" ? "active" : ""}`}
+          className={`admin-manager__nav-item ${
+            activeSection === "status" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("status")}
         >
           Потерянные
         </button>
-                <button
-          className={`admin-manager__nav-item ${activeSection === "duplicate" ? "active" : ""}`}
+        <button
+          className={`admin-manager__nav-item ${
+            activeSection === "duplicate" ? "active" : ""
+          }`}
           onClick={() => setActiveSection("duplicate")}
         >
           Дубликаты
         </button>
+                <button
+          className={`admin-manager__nav-item ${
+            activeSection === "validator" ? "active" : ""
+          }`}
+          onClick={() => setActiveSection("validator")}
+        >
+          Валидация
+        </button>
+                        <button
+          className={`admin-manager__nav-item ${
+            activeSection === "trainer" ? "active" : ""
+          }`}
+          onClick={() => setActiveSection("trainer")}
+        >
+          Тренеры
+        </button>
       </div>
-            {sections[activeSection]}
+      {sections[activeSection]}
     </div>
   );
 };

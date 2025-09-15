@@ -1,24 +1,34 @@
 .admin-manager {
+  /* фирменная палитра под логотип */
+  --black: #0b0b0d;
+  --black-2: #141418;
+  --border: #29292e;
+  --red: #d92027;
+  --red-dark: #b5161c;
+  --white: #ffffff;
+  --text: #e7e7ea;
+  --muted: #b5b7bf;
+
   display: flex;
   flex-direction: column;
   min-height: 95vh;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #0f0f1a;
-  color: #d1d1e0;
+  background: var(--black);
+  color: var(--text);
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 1rem;
-    background: #1a1a2e;
-    border-bottom: 1px solid #2a2a4d;
+    background: var(--black-2);
+    border-bottom: 1px solid var(--border);
   }
 
   &__manager-name {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--white);
   }
 
   &__logout-btn {
@@ -27,123 +37,76 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    background: #00cc99;
-    color: #ffffff;
+    background: var(--red);
+    color: var(--white);
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    will-change: transform, opacity;
+    transition: transform .1s ease, opacity .1s ease, background .12s ease;
 
-    &:hover {
-      background: #00b386;
-      transform: scale(1.05);
-    }
+    &:hover  { background: var(--red-dark); transform: scale(1.03); }
+    &:active { transform: scale(0.97); }
 
-    svg {
-      font-size: 1rem;
-    }
+    svg { font-size: 1rem; }
   }
 
   &__nav {
     display: flex;
     gap: 0.5rem;
     padding: 0.6rem 1rem;
-    background: #1a1a2e;
-    border-bottom: 1px solid #2a2a4d;
+    background: var(--black-2);
+    border-bottom: 1px solid var(--border);
     overflow-x: auto;
     scrollbar-width: none;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    &::-webkit-scrollbar { display: none; }
   }
 
   &__nav-item {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
-    font-weight: 500;
-    color: #d1d1e0;
-    background: none;
+    font-weight: 600;
+    color: var(--muted);
+    background: transparent;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    will-change: background, color;
+    transition: background .12s ease, color .12s ease;
 
-    &:hover {
-      background: #2a2a4d;
-      color: #ffffff;
-    }
+    &:hover { background: #1a1a1f; color: var(--white); }
 
     &.active {
-      background: #00cc99;
-      color: #ffffff;
+      background: var(--red);
+      color: var(--white);
 
-      &:hover {
-        background: #00b386;
-      }
+      &:hover { background: var(--red-dark); }
     }
   }
 
+  /* адаптив */
   @media (max-width: 768px) {
-    &__header {
-      padding: 0.5rem 0.8rem;
+    &__header { padding: 0.5rem 0.8rem; }
+    &__manager-name { font-size: 0.8rem; }
+
+    &__logout-btn { width: 26px; height: 26px;
+      svg { font-size: 0.9rem; }
     }
 
-    &__manager-name {
-      font-size: 0.8rem;
-    }
-
-    &__logout-btn {
-      width: 26px;
-      height: 26px;
-
-      svg {
-        font-size: 0.9rem;
-      }
-    }
-
-    &__nav {
-      padding: 0.5rem 0.8rem;
-      gap: 0.4rem;
-    }
-
-    &__nav-item {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.8rem;
-    }
-
+    &__nav { padding: 0.5rem 0.8rem; gap: 0.4rem; }
+    &__nav-item { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
   }
 
   @media (max-width: 480px) {
-    &__header {
-      padding: 0.4rem 0.6rem;
+    &__header { padding: 0.4rem 0.6rem; }
+    &__manager-name { font-size: 0.75rem; }
+
+    &__logout-btn { width: 24px; height: 24px;
+      svg { font-size: 0.85rem; }
     }
 
-    &__manager-name {
-      font-size: 0.75rem;
-    }
-
-    &__logout-btn {
-      width: 24px;
-      height: 24px;
-
-      svg {
-        font-size: 0.85rem;
-      }
-    }
-
-    &__nav {
-      padding: 0.4rem 0.6rem;
-      gap: 0.3rem;
-    }
-
-    &__nav-item {
-      padding: 0.3rem 0.6rem;
-      font-size: 0.75rem;
-    }
-
-    &__content {
-      padding: 0.6rem;
-    }
+    &__nav { padding: 0.4rem 0.6rem; gap: 0.3rem; }
+    &__nav-item { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
   }
 }

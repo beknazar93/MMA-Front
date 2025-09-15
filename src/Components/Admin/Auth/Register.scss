@@ -1,36 +1,49 @@
 .register-form {
-  max-width: 360px; /* Уменьшено с 400px */
+  /* фирменная палитра */
+  --black: #0b0b0d;
+  --black-2: #141418;
+  --border: #29292e;
+  --red: #d92027;
+  --red-dark: #b5161c;
+  --white: #ffffff;
+  --text: #e7e7ea;
+  --muted: #b5b7bf;
+
+  max-width: 360px;
   padding: 0.8rem;
-  margin: 16rem auto; /* Уменьшено с 200px */
-  background: #1a1a2e;
-  border-radius: 6px; /* Уменьшено с 8px */
-  border: 1px solid #2a2a4d;
+  margin: 16rem auto;
+  background: var(--black-2);
+  border-radius: 6px;
+  border: 1px solid var(--border);
   opacity: 0;
-  transform: translateY(10px); /* Уменьшено с 20px */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Ускорено с 0.5s */
+  transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease;
 
   &--animate {
     opacity: 1;
     transform: translateY(0);
   }
 
+  /* ошибки */
   &__errors {
-    color: #ff6384;
-    margin-bottom: 0.6rem;
+    color: var(--white);
+    background: #1e1e23;
+    border: 1px solid var(--red);
+    border-radius: 6px;
     padding: 0.5rem;
-    background: #22223b;
-    border-radius: 4px;
+    margin-bottom: 0.6rem;
     text-align: center;
 
     p {
       margin: 0;
-      font-size: 0.8rem; /* Уменьшено с 14px */
+      font-size: 0.8rem;
     }
   }
 
+  /* поле + иконка */
   &__input-container {
     position: relative;
-    margin-bottom: 0.6rem; /* Уменьшено с 15px */
+    margin-bottom: 0.6rem;
   }
 
   &__icon {
@@ -38,87 +51,86 @@
     top: 50%;
     left: 0.6rem;
     transform: translateY(-50%);
-    color: #d1d1e0;
-    font-size: 0.9rem; /* Уменьшено с 16px */
+    color: var(--muted);
+    font-size: 0.9rem;
+    pointer-events: none;
   }
 
   &__input,
   &__select {
     width: 100%;
-    padding: 0.5rem 0.5rem 0.5rem 2rem; /* Уменьшено с 12px/36px */
-    border-radius: 4px; /* Уменьшено с 5px */
-    border: 1px solid #2a2a4d;
-    background: #22223b;
-    color: #d1d1e0;
-    font-size: 0.85rem; /* Уменьшено с 14px */
-    transition: border-color 0.15s ease, background 0.15s ease; /* Ускорено с 0.2s */
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: #1c1c24;
+    color: var(--text);
+    font-size: 0.85rem;
+    transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
 
-    &::placeholder {
-      color: #a0a0c0;
-    }
+    &::placeholder { color: #8e8f99; }
 
     &:focus {
       outline: none;
-      border-color: #00cc99;
-      background: #2a2a4d;
+      border-color: var(--red);
+      box-shadow: 0 0 0 2px rgba(217,32,39,.25);
+      background: #1f1f28;
     }
   }
 
   &__select {
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d1d1e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7e7ea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
-    background-size: 14px; /* Уменьшено с 16px */
+    background-size: 14px;
   }
 
+  /* кнопка */
   &__button {
     width: 100%;
-    padding: 0.6rem; /* Уменьшено с 12px */
-    background: #00cc99;
+    padding: 0.6rem;
+    background: var(--red);
     border: none;
-    border-radius: 4px; /* Уменьшено с 5px */
-    color: #ffffff;
-    font-size: 0.9rem; /* Уменьшено с 16px */
-    font-weight: 500;
+    border-radius: 6px;
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s ease, transform 0.1s; /* Ускорено с 0.3s */
+    transition: background .12s ease, transform .1s ease;
 
-    &:hover:not(:disabled) {
-      background: #00b386;
-      transform: translateY(-1px);
-    }
+    &:hover:not(:disabled) { background: var(--red-dark); transform: translateY(-1px); }
+    &:active:not(:disabled) { transform: translateY(0); }
 
     &:disabled {
-      background: #a0a0c0;
+      background: #6c6d73;
       cursor: not-allowed;
     }
   }
 
+  /* спиннер */
   &__spinner {
     width: 14px;
     height: 14px;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--white);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    from { transform: rotate(0); }
+    to   { transform: rotate(360deg); }
   }
 
+  /* адаптив */
   @media (max-width: 768px) {
     max-width: 320px;
     padding: 0.6rem;
 
-    &__errors p {
-      font-size: 0.75rem;
-    }
+    &__errors p { font-size: 0.75rem; }
 
     &__input,
     &__select {
@@ -126,29 +138,16 @@
       font-size: 0.8rem;
     }
 
-    &__icon {
-      left: 0.5rem;
-      font-size: 0.85rem;
-    }
-
-    &__button {
-      padding: 0.5rem;
-      font-size: 0.85rem;
-    }
-
-    &__spinner {
-      width: 12px;
-      height: 12px;
-    }
+    &__icon { left: 0.5rem; font-size: 0.85rem; }
+    &__button { padding: 0.5rem; font-size: 0.85rem; }
+    &__spinner { width: 12px; height: 12px; }
   }
 
   @media (max-width: 480px) {
     max-width: 280px;
     padding: 0.5rem;
 
-    &__errors p {
-      font-size: 0.7rem;
-    }
+    &__errors p { font-size: 0.7rem; }
 
     &__input,
     &__select {
@@ -156,29 +155,16 @@
       font-size: 0.75rem;
     }
 
-    &__icon {
-      left: 0.4rem;
-      font-size: 0.8rem;
-    }
-
-    &__button {
-      padding: 0.4rem;
-      font-size: 0.8rem;
-    }
-
-    &__spinner {
-      width: 10px;
-      height: 10px;
-    }
+    &__icon { left: 0.4rem; font-size: 0.8rem; }
+    &__button { padding: 0.4rem; font-size: 0.8rem; }
+    &__spinner { width: 10px; height: 10px; }
   }
 
   @media (max-width: 320px) {
     max-width: 240px;
     padding: 0.4rem;
 
-    &__errors p {
-      font-size: 0.65rem;
-    }
+    &__errors p { font-size: 0.65rem; }
 
     &__input,
     &__select {
@@ -186,19 +172,8 @@
       font-size: 0.7rem;
     }
 
-    &__icon {
-      left: 0.3rem;
-      font-size: 0.75rem;
-    }
-
-    &__button {
-      padding: 0.3rem;
-      font-size: 0.75rem;
-    }
-
-    &__spinner {
-      width: 8px;
-      height: 8px;
-    }
+    &__icon { left: 0.3rem; font-size: 0.75rem; }
+    &__button { padding: 0.3rem; font-size: 0.75rem; }
+    &__spinner { width: 8px; height: 8px; }
   }
 }

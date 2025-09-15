@@ -1,15 +1,28 @@
 .sold-products {
-  background-color: #0f0f1a;
+  /* logo palette */
+  --black: #0b0b0d;
+  --surface: #141418;
+  --surface-2: #1a1a1f;
+  --border: #2a2a2f;
+  --text: #e7e7ea;
+  --white: #ffffff;
+  --muted: #a0a0c0;
+
+  --red: #d92027;
+  --red-dark: #b5161c;
+
+  background-color: var(--black);
   padding: 0.8rem;
-  border-radius: 4px;
-  color: #d1d1e0;
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   &__title {
     font-size: 1rem;
     margin-bottom: 0.5rem;
     text-align: center;
-    color: #00cc99;
-    font-weight: 500;
+    color: var(--red);
+    font-weight: 600;
   }
 
   &__content {
@@ -21,25 +34,32 @@
   &__loader {
     width: 16px;
     height: 16px;
-    border: 2px solid #00cc99;
-    border-top: 2px solid transparent;
+    border: 2px solid var(--border);
+    border-top: 2px solid var(--red);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 1rem auto;
   }
 
+  &__error {
+    color: var(--red);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
   &__empty {
     font-size: 0.85rem;
     text-align: center;
-    color: #a0a0c0;
+    color: var(--muted);
     padding: 0.5rem;
   }
 
   &__table-container {
     overflow-x: auto;
-    border: 1px solid #2a2a4d;
-    border-radius: 4px;
-    background: #1a1a2e;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-2);
   }
 
   &__table {
@@ -49,14 +69,14 @@
   }
 
   &__table-header {
-    background: #22223b;
+    background: #1e1e24;
 
     th {
       padding: 0.5rem 0.6rem;
       text-align: left;
-      border-bottom: 1px solid #2a2a4d;
-      color: #ffffff;
-      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      color: var(--white);
+      font-weight: 600;
 
       &:last-child {
         border-right: none;
@@ -66,14 +86,14 @@
 
   &__table-row {
     &:hover {
-      background: #2a2a4d;
+      background: var(--surface);
       transition: background 0.15s ease;
     }
 
     td {
       padding: 0.5rem 0.6rem;
-      border-bottom: 1px solid #2a2a4d;
-      color: #d1d1e0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
 
       &:last-child {
         border-right: none;
@@ -85,9 +105,10 @@
     }
   }
 
+  /* если нужно выделить цену со скидкой */
   &__discounted-price {
-    color: #00cc99;
-    font-weight: 500;
+    color: var(--red);
+    font-weight: 600;
   }
 
   @keyframes spin {

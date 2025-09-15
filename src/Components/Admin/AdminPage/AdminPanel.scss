@@ -1,83 +1,96 @@
 .admin-panel {
+  /* === Фирменная палитра (только Ч/К/Б) === */
+  --black: #0b0b0d;
+  --black-2: #121214;
+  --border: #29292e;
+  --red: #d92027;   /* красный из логотипа */
+  --red-2: #b5161c; /* затемнение для :hover */
+  --white: #ffffff;
+  --text: #e7e7ea;
+  --muted: #b5b7bf;
+
   display: flex;
   min-height: 100vh;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #0f0f1a;
-  color: #d1d1e0;
+  background: var(--black);
+  color: var(--text);
 
+  /* ===== SIDEBAR ===== */
   &__sidebar {
-    width: 200px; /* Уменьшено с 240px */
-    background: #1a1a2e;
-    border-right: 1px solid #2a2a4d;
+    width: 200px;
+    background: var(--black-2);
+    border-right: 1px solid var(--border);
     padding: 0.8rem 0;
-    transition: width 0.15s ease-in-out; /* Ускорена анимация */
     display: flex;
     flex-direction: column;
 
-    &--collapsed {
-      width: 60px; /* Уменьшено с 80px */
-    }
+    /* ширина меняется — делаем мгновенно, чтобы не лагало */
+    transition: none;
+
+    &--collapsed { width: 60px; }
   }
 
+  /* ===== LOGO (без свечений и теней) ===== */
   &__sidebar-logo {
     display: flex;
     justify-content: center;
     padding: 0.8rem 0;
     margin-bottom: 0.8rem;
+
+    &-circle {
+      width: 100px;
+      height: 100px;
+      background: #000;
+      border: 2px solid var(--white); /* аккуратное белое кольцо */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      /* дешёвая анимация */
+      will-change: transform;
+      transition: transform .12s ease;
+
+      &:hover { transform: translateY(-1px); }
+    }
+
+    &-image {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      /* фильтры отключены — лишний рендеринг не нужен */
+    }
   }
 
-  &__sidebar-logo-circle {
-    width: 100px;
-    height: 100px;
-    background: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: width 0.15s ease, height 0.15s ease;
+  /* размеры логотипа при схлопывании */
+  &__sidebar--collapsed {
+    .admin-panel__sidebar-logo-circle { width: 56px; height: 56px; }
+    .admin-panel__sidebar-logo-image  { width: 46px; height: 46px; }
   }
 
-  &__sidebar-logo-image {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    transition: width 0.15s ease, height 0.15s ease;
-  }
-
-  &__sidebar--collapsed &__sidebar-logo-circle {
-    width: 55px;
-    height: 55px;
-  }
-
-  &__sidebar--collapsed &__sidebar-logo-image {
-    width: 60px;
-    height: 50px;
-  }
-
+  /* ===== TOGGLE ===== */
   &__sidebar-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px; /* Уменьшено с 40px */
+    width: 28px;
     height: 28px;
-    background: #00cc99;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
     margin: 0 auto 0.8rem;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
+    will-change: transform, opacity;
+    transition: transform .1s ease, opacity .1s ease, background .12s ease;
 
-    &:hover {
-      background: #00b386;
-      transform: scale(1.05);
-    }
-
-    svg {
-      font-size: 1rem; /* Уменьшено с 20px */
-    }
+    &:hover { background: var(--red-2); transform: scale(1.03); }
+    &:active { transform: scale(0.98); }
+    svg { font-size: 1rem; }
   }
 
+  /* ===== NAV ===== */
   &__sidebar-list {
     list-style: none;
     padding: 0;
@@ -89,94 +102,62 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.6rem 0.8rem; /* Уменьшено с 13px 10px */
-    font-size: 0.9rem; /* Уменьшено с 16px */
-    color: #d1d1e0;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    color: var(--muted);
     cursor: pointer;
-    border-radius: 4px; /* Уменьшено с 8px */
-    transition: background 0.15s, color 0.15s;
+    border-radius: 8px;
+    will-change: background, color, transform, opacity;
+    transition: background .12s ease, color .12s ease;
 
-    &:hover {
-      background: #2a2a4d;
-      color: #ffffff;
-    }
+    &:hover { background: #1a1a1f; color: var(--white); }
 
     &--active {
-      background: #00cc99;
-      color: #ffffff;
+      background: var(--red);
+      color: var(--white);
 
-      &:hover {
-        background: #00b386;
-      }
+      &:hover { background: var(--red-2); }
     }
+
+    &-icon  { font-size: 1.1rem; color: inherit; }
+    &-label { flex: 1; opacity: 1; transition: opacity .12s ease; }
   }
 
-  &__sidebar-item-icon {
-    font-size: 1.1rem; /* Уменьшено с 20px */
+  &__sidebar--collapsed .admin-panel__sidebar-item-label {
+    opacity: 0; width: 0; overflow: hidden;
   }
 
-  &__sidebar-item-label {
-    flex: 1;
-    opacity: 1;
-    transition: opacity 0.15s;
-  }
-
-  &__sidebar--collapsed &__sidebar-item-label {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-  }
-
+  /* ===== CONTENT ===== */
   &__content {
     flex: 1;
-    background: #0f0f1a;
-    transition: padding 0.15s ease;
+    background: var(--black);
+    /* убираем анимацию паддингов — это лишние reflow */
   }
 
+  /* ===== ADAPTIVE ===== */
   @media (max-width: 1200px) {
-    &__sidebar {
-      width: 180px;
-
-      &-logo-circle {
-        width: 80px;
-        height: 80px;
-      }
-
-      &-logo-image {
-        width: 70px;
-        height: 70px;
-      }
-    }
+    &__sidebar { width: 180px; }
+    &__sidebar-logo-circle { width: 86px; height: 86px; }
+    &__sidebar-logo-image  { width: 74px; height: 74px; }
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
 
     &__sidebar {
+      position: fixed;
+      left: 0; bottom: 0; z-index: 1000;
       width: 100%;
       height: auto;
       padding: 0.4rem;
       flex-direction: row;
       justify-content: space-around;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 1000;
       border-right: none;
-      border-top: 1px solid #2a2a4d;
-
-      &--collapsed {
-        width: 100%;
-      }
+      border-top: 1px solid var(--border);
     }
 
-    &__sidebar-logo {
-      display: none;
-    }
-
-    &__sidebar-toggle {
-      display: none;
-    }
+    &__sidebar-logo,
+    &__sidebar-toggle { display: none; }
 
     &__sidebar-list {
       display: flex;
@@ -191,60 +172,25 @@
       padding: 0.4rem;
       font-size: 0;
 
-      &-label {
-        display: none;
-      }
-
-      &-icon {
-        font-size: 1.2rem; /* Уменьшено с 24px */
-      }
-
-      &--active {
-        background: #00cc99;
-      }
+      &-label { display: none; }
+      &-icon  { font-size: 1.2rem; }
+      &--active { background: var(--red); }
     }
 
-    &__content {
-      padding: 0.6rem;
-      margin-bottom: 48px;
-    }
+    &__content { padding: 0.6rem; margin-bottom: 50px; }
   }
 
   @media (max-width: 480px) {
-    &__sidebar {
-      padding: 0.3rem;
-
-      &-item {
-        padding: 0.3rem;
-
-        &-icon {
-          font-size: 1.1rem;
-        }
-      }
-    }
-
-    &__content {
-      padding: 0.5rem;
-      margin-bottom: 40px;
-    }
+    &__sidebar { padding: 0.3rem; }
+    &__sidebar-item { padding: 0.3rem; }
+    &__sidebar-item-icon { font-size: 1.1rem; }
+    &__content { padding: 0.5rem; margin-bottom: 42px; }
   }
 
   @media (max-width: 320px) {
-    &__sidebar {
-      padding: 0.2rem;
-
-      &-item {
-        padding: 0.2rem;
-
-        &-icon {
-          font-size: 1rem;
-        }
-      }
-    }
-
-    &__content {
-      padding: 0.4rem;
-      margin-bottom: 36px;
-    }
+    &__sidebar { padding: 0.2rem; }
+    &__sidebar-item { padding: 0.2rem; }
+    &__sidebar-item-icon { font-size: 1rem; }
+    &__content { padding: 0.4rem; margin-bottom: 36px; }
   }
 }

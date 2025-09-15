@@ -1,28 +1,43 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTrash, FaSignOutAlt, FaSortUp, FaSortDown, FaPlus, FaEdit } from "react-icons/fa";
-import './Notes.scss';
+import {
+  FaTrash,
+  FaSignOutAlt,
+  FaSortUp,
+  FaSortDown,
+  FaPlus,
+  FaEdit,
+} from "react-icons/fa";
+import "./Notes.scss";
+
+const API_URL = "https://testosh.pythonanywhere.com/api/notes/";
 
 const Notes = () => {
   const navigate = useNavigate();
-  const [managerName] = useState(localStorage.getItem("manager_name") || "Неизвестный менеджер");
+
+  const [managerName] = useState(
+    localStorage.getItem("manager_name") || "Неизвестный менеджер"
+  );
   const [notes, setNotes] = useState([]);
   const [note, setNote] = useState({ id: null, text: "", date: "", time: "" });
   const [loading, setLoading] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: "time", order: "asc" });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const authHeaders = () => ({
+    Authorization: `Bearer ${localStorage.getItem("access")}`,
+  });
+
   const fetchNotes = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://testosh.pythonanywhere.com/api/notes/", {
-        headers: { "Authorization": `Bearer ${localStorage.getItem("access")}` },
-      });
-      if (!response.ok) throw new Error("Ошибка загрузки заметок.");
-      const data = await response.json();
+      const res = await fetch(API_URL, { headers: authHeaders() });
+      if (!res.ok) throw new Error("Ошибка загрузки заметок");
+      const data = await res.json();
       setNotes(data);
-    } catch (error) {
+    } catch (e) {
       alert("Ошибка загрузки заметок.");
+      // console.error(e);
     } finally {
       setLoading(false);
     }
@@ -34,7 +49,7 @@ const Notes = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNote(prev => ({ ...prev, [name]: value }));
+    setNote((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -43,17 +58,18 @@ const Notes = () => {
       alert("Заполните все поля.");
       return;
     }
+
     setLoading(true);
     try {
-      const url = note.id
-        ? `https://testosh.pythonanywhere.com/api/notes/${note.id}/`
-        : "https://testosh.pythonanywhere.com/api/notes/";
-      const method = note.id ? "PUT" : "POST";
-      const response = await fetch(url, {
+      const isEdit = Boolean(note.id);
+      const url = isEdit ? `${API_URL}${note.id}/` : API_URL;
+      const method = isEdit ? "PUT" : "POST";
+
+      const res = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("access")}`,
+          ...authHeaders(),
         },
         body: JSON.stringify({
           text: note.text,
@@ -61,38 +77,43 @@ const Notes = () => {
           time: note.time,
         }),
       });
-      if (!response.ok) throw new Error(`Ошибка ${note.id ? "обновления" : "добавления"} заметки.`);
-      const updatedNote = await response.json();
-      setNotes(note.id
-        ? notes.map(n => n.id === note.id ? updatedNote : n)
-        : [...notes, updatedNote]);
+
+      if (!res.ok)
+        throw new Error(`Ошибка ${isEdit ? "обновления" : "добавления"} заметки`);
+
+      const payload = await res.json();
+      setNotes((prev) =>
+        isEdit ? prev.map((n) => (n.id === note.id ? payload : n)) : [...prev, payload]
+      );
+
       setNote({ id: null, text: "", date: "", time: "" });
       setIsModalOpen(false);
-      alert(`Заметка ${note.id ? "обновлена" : "добавлена"}!`);
-    } catch (error) {
+      alert(`Заметка ${isEdit ? "обновлена" : "добавлена"}!`);
+    } catch {
       alert(`Ошибка ${note.id ? "обновления" : "добавления"} заметки.`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditNote = (note) => {
-    setNote({ id: note.id, text: note.text, date: note.date, time: note.time });
+  const handleEditNote = (n) => {
+    setNote({ id: n.id, text: n.text, date: n.date, time: n.time });
     setIsModalOpen(true);
   };
 
   const handleDeleteNote = async (id) => {
     if (!window.confirm("Удалить заметку?")) return;
+
     setLoading(true);
     try {
-      const response = await fetch(`https://testosh.pythonanywhere.com/api/notes/${id}/`, {
+      const res = await fetch(`${API_URL}${id}/`, {
         method: "DELETE",
-        headers: { "Authorization": `Bearer ${localStorage.getItem("access")}` },
+        headers: authHeaders(),
       });
-      if (!response.ok) throw new Error("Ошибка удаления заметки.");
-      setNotes(notes.filter(note => note.id !== id));
+      if (!res.ok) throw new Error("Ошибка удаления заметки");
+      setNotes((prev) => prev.filter((n) => n.id !== id));
       alert("Заметка удалена!");
-    } catch (error) {
+    } catch {
       alert("Ошибка удаления заметки.");
     } finally {
       setLoading(false);
@@ -100,21 +121,23 @@ const Notes = () => {
   };
 
   const handleSort = (key) => {
-    const newOrder = sortConfig.key === key && sortConfig.order === "asc" ? "desc" : "asc";
-    setSortConfig({ key, order: newOrder });
-    setNotes([...notes].sort((a, b) => {
-      const valueA = key === "text" ? a[key].toLowerCase() : a[key];
-      const valueB = key === "text" ? b[key].toLowerCase() : b[key];
-      if (valueA < valueB) return newOrder === "asc" ? -1 : 1;
-      if (valueA > valueB) return newOrder === "asc" ? 1 : -1;
-      return 0;
-    }));
+    const order = sortConfig.key === key && sortConfig.order === "asc" ? "desc" : "asc";
+    setSortConfig({ key, order });
+
+    setNotes((prev) => {
+      const arr = [...prev];
+      arr.sort((a, b) => {
+        const A = key === "text" ? (a[key] || "").toLowerCase() : a[key] || "";
+        const B = key === "text" ? (b[key] || "").toLowerCase() : b[key] || "";
+        if (A < B) return order === "asc" ? -1 : 1;
+        if (A > B) return order === "asc" ? 1 : -1;
+        return 0;
+      });
+      return arr;
+    });
   };
 
-  const isOverdue = (time) => {
-    const today = new Date();
-    return new Date(time) < today && time;
-  };
+  const isOverdue = (dateStr) => dateStr && new Date(dateStr) < new Date();
 
   const handleLogout = () => {
     localStorage.removeItem("access");
@@ -124,12 +147,18 @@ const Notes = () => {
 
   return (
     <div className="notes">
+      {/* шапка менеджера берёт стиль из AdminManager.scss */}
       <div className="admin-manager__header">
         <span className="admin-manager__manager-name">{managerName}</span>
-        <button className="admin-manager__logout-btn" onClick={handleLogout} aria-label="Выйти">
+        <button
+          className="admin-manager__logout-btn"
+          onClick={handleLogout}
+          aria-label="Выйти"
+        >
           <FaSignOutAlt />
         </button>
       </div>
+
       <div className="notes__header">
         <h3 className="notes__title">Заметки</h3>
         <button
@@ -140,11 +169,15 @@ const Notes = () => {
           <FaPlus /> Добавить
         </button>
       </div>
+
       {isModalOpen && (
         <div className="notes__modal-overlay">
           <div className="notes__modal">
             <form className="notes__form" onSubmit={handleSubmit}>
-              <h3 className="notes__modal-title">{note.id ? "Редактировать заметку" : "Новая заметка"}</h3>
+              <h3 className="notes__modal-title">
+                {note.id ? "Редактировать заметку" : "Новая заметка"}
+              </h3>
+
               <div className="notes__form-content">
                 <textarea
                   name="text"
@@ -179,6 +212,7 @@ const Notes = () => {
                   </div>
                 </div>
               </div>
+
               <div className="notes__modal-actions">
                 <button
                   type="submit"
@@ -191,7 +225,10 @@ const Notes = () => {
                 <button
                   type="button"
                   className="notes__btn notes__btn--cancel"
-                  onClick={() => { setIsModalOpen(false); setNote({ id: null, text: "", date: "", time: "" }); }}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setNote({ id: null, text: "", date: "", time: "" });
+                  }}
                   disabled={loading}
                   aria-label="Отмена"
                 >
@@ -202,50 +239,40 @@ const Notes = () => {
           </div>
         </div>
       )}
+
       <div className="notes__list">
         {loading ? (
           <div className="notes__loader" />
-        ) : notes.length > 0 ? (
+        ) : notes.length ? (
           <table className="notes__table">
             <thead>
               <tr>
                 <th className="notes__table-header" onClick={() => handleSort("text")}>
-                  Задача
-                  {sortConfig.key === "text" && (
-                    sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )}
+                  Задача {sortConfig.key === "text" && (sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />)}
                 </th>
                 <th className="notes__table-header" onClick={() => handleSort("date")}>
-                  Дата создания
-                  {sortConfig.key === "date" && (
-                    sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )}
+                  Дата создания {sortConfig.key === "date" && (sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />)}
                 </th>
                 <th className="notes__table-header" onClick={() => handleSort("time")}>
-                  Дата выполнения
-                  {sortConfig.key === "time" && (
-                    sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )}
+                  Дата выполнения {sortConfig.key === "time" && (sortConfig.order === "asc" ? <FaSortUp /> : <FaSortDown />)}
                 </th>
                 <th className="notes__table-header">Действия</th>
               </tr>
             </thead>
             <tbody>
-              {notes.map((note, index) => (
+              {notes.map((n, idx) => (
                 <tr
-                  key={note.id}
-                  className={`notes__table-row ${isOverdue(note.time) ? "notes__table-row--overdue" : ""}`}
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  key={n.id}
+                  className={`notes__table-row ${isOverdue(n.time) ? "notes__table-row--overdue" : ""}`}
+                  style={{ animationDelay: `${idx * 0.05}s` }}
                 >
-                  <td className="notes__table-cell">{note.text || "-"}</td>
-                  <td className="notes__table-cell">{note.date || "-"}</td>
-                  <td className="notes__table-cell notes__table-cell--due">
-                    {note.time || "-"}
-                  </td>
+                  <td className="notes__table-cell">{n.text || "-"}</td>
+                  <td className="notes__table-cell">{n.date || "-"}</td>
+                  <td className="notes__table-cell notes__table-cell--due">{n.time || "-"}</td>
                   <td className="notes__table-cell notes__table-cell--actions">
                     <button
                       className="notes__edit-btn"
-                      onClick={() => handleEditNote(note)}
+                      onClick={() => handleEditNote(n)}
                       disabled={loading}
                       aria-label="Редактировать заметку"
                     >
@@ -253,7 +280,7 @@ const Notes = () => {
                     </button>
                     <button
                       className="notes__delete-btn"
-                      onClick={() => handleDeleteNote(note.id)}
+                      onClick={() => handleDeleteNote(n.id)}
                       disabled={loading}
                       aria-label="Удалить заметку"
                     >

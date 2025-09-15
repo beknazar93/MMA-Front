@@ -1,12 +1,21 @@
 .dashboard {
-  max-width: 1280px; // Увеличено для больших экранов
+  /* палитра логотипа */
+  --black: #0b0b0d;
+  --black-2: #141418;
+  --border: #29292e;
+  --red: #d92027;
+  --red-dark: #b5161c;
+  --white: #ffffff;
+  --text: #e0e0e6;
+  --muted: #b5b7bf;
+
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #0f0f1a;
-  color: #e0e0e6;
+  background: var(--black);
+  color: var(--text);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
   &__header {
     display: flex;
@@ -16,13 +25,13 @@
     gap: 1.2rem;
     margin-bottom: 2rem;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid #2a2a4d;
+    border-bottom: 1px solid var(--border);
   }
 
   &__title {
     font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-weight: 800;
+    color: var(--white);
     letter-spacing: -0.02em;
   }
 
@@ -37,31 +46,32 @@
     display: flex;
     gap: 0.6rem;
     align-items: center;
-    background: #1a1a2e;
+    background: var(--black-2);
     border-radius: 8px;
     padding: 0.4rem;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
   }
 
   &__filter-icon {
     font-size: 1.1rem;
     margin-left: 0.6rem;
-    color: #b0b0cc;
+    color: var(--muted);
   }
 
   &__select {
-    padding: 0.7rem 1.2rem;
+    padding: 0.6rem 1rem;
     font-size: 0.95rem;
     border-radius: 6px;
     background: transparent;
-    color: #e0e0e6;
-    border: 1px solid #2a2a4d;
-    transition: all 0.3s ease;
+    color: var(--text);
+    border: 1px solid var(--border);
+    transition: border-color .12s ease, box-shadow .12s ease;
 
     &:focus {
-      background: #2a2a4d;
-      border-color: #00cc99;
+      background: #1b1b22;
+      border-color: var(--red);
       outline: none;
+      box-shadow: 0 0 0 2px rgba(217, 32, 39, .25);
     }
   }
 
@@ -69,29 +79,21 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.7rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     font-size: 0.95rem;
-    font-weight: 500;
-    background: #00cc99;
-    color: #ffffff;
+    font-weight: 800;
+    background: var(--red);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background .12s ease, transform .1s ease;
 
-    &:hover {
-      background: #00b386;
-      transform: translateY(-2px);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
+    &:hover { background: var(--red-dark); transform: translateY(-1px); }
+    &:active { transform: translateY(0); }
   }
 
-  &__reset-icon {
-    font-size: 1.1rem;
-  }
+  &__reset-icon { font-size: 1.1rem; }
 
   &__loading {
     display: flex;
@@ -99,51 +101,56 @@
     justify-content: center;
     gap: 0.6rem;
     font-size: 1rem;
-    color: #e0e0e6;
     padding: 2rem;
   }
 
   &__loading-spinner {
     width: 20px;
     height: 20px;
-    border: 3px solid #00cc99;
-    border-top: 3px solid transparent;
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--red);
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin .8s linear infinite;
   }
 
   &__error {
     text-align: center;
     font-size: 1rem;
-    color: #ff6b6b;
-    padding: 2rem;
-    background: #2a1a1a;
+    color: var(--white);
+    padding: 1rem;
+    background: #1e1e23;
+    border: 1px solid var(--red);
     border-radius: 8px;
+
+    .dashboard__retry-btn {
+      margin-top: .6rem;
+      background: transparent;
+      color: var(--red);
+      border: 1px solid rgba(217,32,39,.5);
+      border-radius: 6px;
+      padding: .4rem .8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .12s ease;
+
+      &:hover { background: rgba(217,32,39,.12); }
+    }
   }
 
   &__content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 
   &__card {
-    background: #1e1e33;
+    background: var(--black-2);
     border-radius: 12px;
-    padding: 1.5rem;
-    border: 1px solid #2a2a4d;
-    transition: all 0.3s ease;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    transition: transform .12s ease;
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    }
-
-    &--revenue {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    &:hover { transform: translateY(-2px); }
 
     &--students,
     &--sources,
@@ -159,31 +166,18 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.8rem;
   }
 
   &__card-icon {
     font-size: 1.2rem;
-    color: #00cc99;
+    color: var(--red);
   }
 
   &__card-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #ffffff;
-  }
-
-  &__revenue {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  &__revenue-count {
-    font-size: 1rem;
-    color: #b0b0cc;
-    font-weight: 500;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--white);
   }
 
   &__students,
@@ -209,51 +203,47 @@
   &__gender-label,
   &__type-client-label {
     font-size: 0.95rem;
-    color: #e0e0e6;
+    color: var(--text);
     margin-bottom: 0.3rem;
   }
 
   &__sources-total {
     font-size: 0.95rem;
-    color: #e0e0e6;
+    color: var(--text);
     margin-bottom: 0.6rem;
-    font-weight: 500;
+    font-weight: 700;
   }
 
+  /* общая горизонтальная «полоска»-бар */
   &__bar {
     height: 20px;
-    background: linear-gradient(90deg, #00cc99, #33d4a6);
+    background: var(--red);
     border-radius: 6px;
     position: relative;
     min-width: 14px;
-    transition: width 0.5s ease-in-out;
+    transition: width .3s ease-in-out;
   }
 
   &__bar-value {
     position: absolute;
-    right: 14px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.9rem;
-    color: #ffffff;
-    font-weight: 500;
+    color: var(--white);
+    font-weight: 800;
   }
 
   @media (max-width: 768px) {
     padding: 1.5rem;
-    &__title {
-      font-size: 1.8rem;
-    }
-    &__content {
-      grid-template-columns: 1fr;
-    }
-    &__card {
-      padding: 1.2rem;
-    }
+
+    &__title { font-size: 1.8rem; }
+    &__content { grid-template-columns: 1fr; }
+    &__card { padding: 1rem; }
   }
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    from { transform: rotate(0); }
+    to   { transform: rotate(360deg); }
   }
 }

@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AddClient from "./AddClient/AddClient";
+
 import ClientsTable from "./ClientTable/ClientsTable";
+import AddClient from "./AddClient/AddClient";
 import DailyClients from "./DailyClients/DailyClients";
-import { FaSignOutAlt } from "react-icons/fa";
-import "./AdminManager.scss";
 import DuplicateClients from "./DuplicateClients/DuplicateClients";
 import ClientStatus from "./ClientStatus/ClientStatus";
 import ClientValidator from "./ClientValidator/ClientValidator";
 import TrainerMultiSports from "./TrainerMultiSports/TrainerMultiSports";
 
+import { FaSignOutAlt } from "react-icons/fa";
+import "./AdminManager.scss";
+
 const AdminManager = () => {
   const [activeSection, setActiveSection] = useState("clients");
   const navigate = useNavigate();
+
   const managerName = localStorage.getItem("manager_name") || "Unknown Manager";
 
   const handleLogout = () => {
@@ -21,15 +24,31 @@ const AdminManager = () => {
     navigate("/admin");
   };
 
-  const sections = {
-    clients: <ClientsTable />,
-    other: <AddClient />,
-    dayclients: <DailyClients />,
-    status: <ClientStatus />,
-    duplicate: <DuplicateClients />,
-    validator: <ClientValidator />,
-    trainer: <TrainerMultiSports />,
-  };
+  const sections = useMemo(
+    () => ({
+      clients: <ClientsTable />,
+      other: <AddClient />,
+      dayclients: <DailyClients />,
+      status: <ClientStatus />,
+      duplicate: <DuplicateClients />,
+      validator: <ClientValidator />,
+      trainer: <TrainerMultiSports />,
+    }),
+    []
+  );
+
+  const navItems = useMemo(
+    () => [
+      { key: "clients", label: "Список" },
+      { key: "other", label: "Добавление" },
+      { key: "dayclients", label: "Разовый" },
+      { key: "status", label: "Потерянные" },
+      { key: "duplicate", label: "Дубликаты" },
+      { key: "validator", label: "Валидация" },
+      { key: "trainer", label: "Тренеры" },
+    ],
+    []
+  );
 
   return (
     <div className="admin-manager">
@@ -43,64 +62,22 @@ const AdminManager = () => {
           <FaSignOutAlt />
         </button>
       </div>
+
       <div className="admin-manager__nav">
-        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "clients" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("clients")}
-        >
-          Список
-        </button>
-        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "other" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("other")}
-        >
-          Добавление
-        </button>
-        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "dayclients" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("dayclients")}
-        >
-          Разовый
-        </button>
-        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "status" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("status")}
-        >
-          Потерянные
-        </button>
-        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "duplicate" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("duplicate")}
-        >
-          Дубликаты
-        </button>
-                <button
-          className={`admin-manager__nav-item ${
-            activeSection === "validator" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("validator")}
-        >
-          Валидация
-        </button>
-                        <button
-          className={`admin-manager__nav-item ${
-            activeSection === "trainer" ? "active" : ""
-          }`}
-          onClick={() => setActiveSection("trainer")}
-        >
-          Тренеры
-        </button>
+        {navItems.map(({ key, label }) => (
+          <button
+            key={key}
+            className={`admin-manager__nav-item ${
+              activeSection === key ? "active" : ""
+            }`}
+            onClick={() => setActiveSection(key)}
+            aria-pressed={activeSection === key}
+          >
+            {label}
+          </button>
+        ))}
       </div>
+
       {sections[activeSection]}
     </div>
   );

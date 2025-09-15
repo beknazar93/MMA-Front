@@ -1,14 +1,23 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { fetchClients } from '../../api/API';
-import { months, years, trainers, sports, typeClients, checkFieldOptions } from '../../Constants/constants';
-import './NewClients.scss';
+import React, { useState, useEffect, useMemo } from "react";
+import { fetchClients } from "../../api/API";
+import {
+  months,
+  years,
+  trainers,
+  sports,
+  typeClients,
+  checkFieldOptions,
+} from "../../Constants/constants";
+import "./NewClients.scss";
 
 const NewClients = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [selectedYear, setSelectedYear] = useState('2025');
+
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2025");
+
   const [selectedTrainer, setSelectedTrainer] = useState(null);
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
@@ -18,11 +27,11 @@ const NewClients = () => {
     const loadClients = async () => {
       try {
         setLoading(true);
-        const clientsData = await fetchClients();
-        setClients(clientsData);
+        const data = await fetchClients();
+        setClients(data);
         setError(null);
-      } catch (error) {
-        setError('Ошибка загрузки данных.');
+      } catch {
+        setError("Ошибка загрузки данных.");
       } finally {
         setLoading(false);
       }
@@ -33,79 +42,93 @@ const NewClients = () => {
   const newClients = useMemo(() => {
     if (!selectedMonth || !selectedYear) return [];
     const selectedMonthIndex = months.indexOf(selectedMonth);
-    const selectedYearNum = parseInt(selectedYear);
+    const selectedYearNum = parseInt(selectedYear, 10);
 
-    const currentClients = clients.filter(client => 
-      client.month === selectedMonth && client.year === selectedYear
+    const currentClients = clients.filter(
+      (c) => c.month === selectedMonth && c.year === selectedYear
     );
 
-    const previousClients = clients.filter(client => {
-      const clientYearNum = parseInt(client.year);
-      const clientMonthIndex = months.indexOf(client.month);
-      return (
-        clientYearNum < selectedYearNum ||
-        (clientYearNum === selectedYearNum && clientMonthIndex < selectedMonthIndex)
-      );
+    const previousClients = clients.filter((c) => {
+      const year = parseInt(c.year, 10);
+      const monthIndex = months.indexOf(c.month);
+      return year < selectedYearNum || (year === selectedYearNum && monthIndex < selectedMonthIndex);
     });
 
-    return currentClients.filter(currentClient => 
-      !previousClients.some(prevClient => 
-        prevClient.name.toLowerCase() === currentClient.name.toLowerCase()
-      )
+    return currentClients.filter(
+      (curr) =>
+        !previousClients.some(
+          (prev) => (prev.name || "").toLowerCase() === (curr.name || "").toLowerCase()
+        )
     );
   }, [clients, selectedMonth, selectedYear]);
 
-  const trainerStats = useMemo(() => {
-    return trainers.map(trainer => {
-      const trainerNewClients = newClients.filter(client => client.trainer === trainer);
-      return { trainer, count: trainerNewClients.length, clients: trainerNewClients };
-    }).sort((a, b) => b.count - a.count);
-  }, [newClients]);
+  const trainerStats = useMemo(
+    () =>
+      trainers
+        .map((t) => {
+          const list = newClients.filter((c) => c.trainer === t);
+          return { trainer: t, count: list.length, clients: list };
+        })
+        .sort((a, b) => b.count - a.count),
+    [newClients]
+  );
 
-  const sportStats = useMemo(() => {
-    return sports.map(sport => {
-      const sportNewClients = newClients.filter(client => client.sport_category === sport);
-      return { sport, count: sportNewClients.length, clients: sportNewClients };
-    }).sort((a, b) => b.count - a.count);
-  }, [newClients]);
+  const sportStats = useMemo(
+    () =>
+      sports
+        .map((s) => {
+          const list = newClients.filter((c) => c.sport_category === s);
+          return { sport: s, count: list.length, clients: list };
+        })
+        .sort((a, b) => b.count - a.count),
+    [newClients]
+  );
 
-  const typeClientStats = useMemo(() => {
-    return typeClients.map(type => {
-      const typeNewClients = newClients.filter(client => client.typeClient === type);
-      return { type, count: typeNewClients.length, clients: typeNewClients };
-    }).sort((a, b) => b.count - a.count);
-  }, [newClients]);
+  const typeClientStats = useMemo(
+    () =>
+      typeClients
+        .map((t) => {
+          const list = newClients.filter((c) => c.typeClient === t);
+          return { type: t, count: list.length, clients: list };
+        })
+        .sort((a, b) => b.count - a.count),
+    [newClients]
+  );
 
-  const sourceStats = useMemo(() => {
-    return checkFieldOptions.map(source => {
-      const sourceNewClients = newClients.filter(client => client.check_field === source);
-      return { source, count: sourceNewClients.length, clients: sourceNewClients };
-    }).sort((a, b) => b.count - a.count);
-  }, [newClients]);
+  const sourceStats = useMemo(
+    () =>
+      checkFieldOptions
+        .map((s) => {
+          const list = newClients.filter((c) => c.check_field === s);
+          return { source: s, count: list.length, clients: list };
+        })
+        .sort((a, b) => b.count - a.count),
+    [newClients]
+  );
 
-  const handleTrainerClick = (trainer) => {
-    setSelectedTrainer(selectedTrainer === trainer ? null : trainer);
+  const handleTrainerClick = (t) => {
+    setSelectedTrainer(selectedTrainer === t ? null : t);
     setSelectedSport(null);
     setSelectedType(null);
     setSelectedSource(null);
   };
 
-  const handleSportClick = (sport) => {
-    setSelectedSport(selectedSport === sport ? null : sport);
+  const handleSportClick = (s) => {
+    setSelectedSport(selectedSport === s ? null : s);
     setSelectedTrainer(null);
     setSelectedType(null);
     setSelectedSource(null);
   };
 
-  const handleTypeClick = (type) => {
-    setSelectedType(selectedType === type ? null : type);
+  const handleTypeClick = (t) => {
+    setSelectedType(selectedType === t ? null : t);
     setSelectedTrainer(null);
     setSelectedSport(null);
     setSelectedSource(null);
   };
 
-  const handleSourceClick = (source) => {
-    setSelectedSource(selectedSource === source ? null : source);
+  const handleSourceClick = (s) => {
+    setSelectedSource(selectedSource === s ? null : s);
     setSelectedTrainer(null);
     setSelectedSport(null);
     setSelectedType(null);
@@ -114,26 +137,36 @@ const NewClients = () => {
   return (
     <div className="new-clients">
       <h2 className="new-clients__title">Новые клиенты</h2>
+
       <div className="new-clients__filters">
         <div className="new-clients__filter">
           <label className="new-clients__label">Месяц:</label>
-          <select 
+          <select
             className="new-clients__select"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
+            aria-label="Выберите месяц"
           >
-            <option value="" disabled>Выберите месяц</option>
-            {months.map(month => (
-              <option key={month} value={month}>{month}</option>
+            <option value="" disabled>
+              Выберите месяц
+            </option>
+            {months.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
             ))}
           </select>
-          <select 
+
+          <select
             className="new-clients__select"
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
+            aria-label="Выберите год"
           >
-            {years.map(year => (
-              <option key={year} value={year}>{year}</option>
+            {years.map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
             ))}
           </select>
         </div>
@@ -150,29 +183,32 @@ const NewClients = () => {
               Новые клиенты в {selectedMonth} {selectedYear} ({newClients.length})
             </h3>
             <ul className="new-clients__list">
-              {newClients.map(client => (
-                <li key={client.id} className="new-clients__item">
-                  {client.name} ({client.sport_category})
+              {newClients.map((c) => (
+                <li key={c.id} className="new-clients__item">
+                  {c.name} ({c.sport_category})
                 </li>
               ))}
             </ul>
           </div>
+
           <div className="new-clients__section">
             <h3 className="new-clients__subtitle">Тренеры</h3>
             <ul className="new-clients__list">
               {trainerStats.map(({ trainer, count, clients }) => (
                 <li key={trainer} className="new-clients__item">
-                  <button 
+                  <button
+                    type="button"
                     className="new-clients__action"
                     onClick={() => handleTrainerClick(trainer)}
+                    aria-expanded={selectedTrainer === trainer}
                   >
                     {trainer}: {count} клиентов
                   </button>
                   {selectedTrainer === trainer && (
                     <ul className="new-clients__sublist">
-                      {clients.map(client => (
-                        <li key={client.id} className="new-clients__subitem">
-                          {client.name} ({client.sport_category})
+                      {clients.map((c) => (
+                        <li key={c.id} className="new-clients__subitem">
+                          {c.name} ({c.sport_category})
                         </li>
                       ))}
                     </ul>
@@ -181,22 +217,25 @@ const NewClients = () => {
               ))}
             </ul>
           </div>
+
           <div className="new-clients__section">
             <h3 className="new-clients__subtitle">Виды спорта</h3>
             <ul className="new-clients__list">
               {sportStats.map(({ sport, count, clients }) => (
                 <li key={sport} className="new-clients__item">
-                  <button 
+                  <button
+                    type="button"
                     className="new-clients__action"
                     onClick={() => handleSportClick(sport)}
+                    aria-expanded={selectedSport === sport}
                   >
                     {sport}: {count} клиентов
                   </button>
                   {selectedSport === sport && (
                     <ul className="new-clients__sublist">
-                      {clients.map(client => (
-                        <li key={client.id} className="new-clients__subitem">
-                          {client.name} ({client.trainer})
+                      {clients.map((c) => (
+                        <li key={c.id} className="new-clients__subitem">
+                          {c.name} ({c.trainer})
                         </li>
                       ))}
                     </ul>
@@ -205,22 +244,25 @@ const NewClients = () => {
               ))}
             </ul>
           </div>
+
           <div className="new-clients__section">
             <h3 className="new-clients__subtitle">Типы клиентов</h3>
             <ul className="new-clients__list">
               {typeClientStats.map(({ type, count, clients }) => (
                 <li key={type} className="new-clients__item">
-                  <button 
+                  <button
+                    type="button"
                     className="new-clients__action"
                     onClick={() => handleTypeClick(type)}
+                    aria-expanded={selectedType === type}
                   >
                     {type}: {count} клиентов
                   </button>
                   {selectedType === type && (
                     <ul className="new-clients__sublist">
-                      {clients.map(client => (
-                        <li key={client.id} className="new-clients__subitem">
-                          {client.name} ({client.sport_category})
+                      {clients.map((c) => (
+                        <li key={c.id} className="new-clients__subitem">
+                          {c.name} ({c.sport_category})
                         </li>
                       ))}
                     </ul>
@@ -229,22 +271,25 @@ const NewClients = () => {
               ))}
             </ul>
           </div>
+
           <div className="new-clients__section">
             <h3 className="new-clients__subtitle">Источники</h3>
             <ul className="new-clients__list">
               {sourceStats.map(({ source, count, clients }) => (
                 <li key={source} className="new-clients__item">
-                  <button 
+                  <button
+                    type="button"
                     className="new-clients__action"
                     onClick={() => handleSourceClick(source)}
+                    aria-expanded={selectedSource === source}
                   >
                     {source}: {count} клиентов
                   </button>
                   {selectedSource === source && (
                     <ul className="new-clients__sublist">
-                      {clients.map(client => (
-                        <li key={client.id} className="new-clients__subitem">
-                          {client.name} ({client.sport_category})
+                      {clients.map((c) => (
+                        <li key={c.id} className="new-clients__subitem">
+                          {c.name} ({c.sport_category})
                         </li>
                       ))}
                     </ul>

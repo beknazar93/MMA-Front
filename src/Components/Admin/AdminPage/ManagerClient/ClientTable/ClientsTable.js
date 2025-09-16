@@ -612,7 +612,7 @@ const splitComment = (comment = "") => {
 const normalizePayment = (v) => {
   const s = String(v || "").toLowerCase().replace(/\s+/g, "");
   if (["оплачено", "paid"].includes(s)) return "Оплачено";
-  if (["неоплачено", "неоплачен", "неоплата", "unpaid"].includes(s)) return "Неоплачено";
+  if (["неоплачено", "неоплачен", "неоплата", "unpaid"].includes(s)) return "Не оплачено";
   return v || "-";
 };
 const paymentClass = (v) => {

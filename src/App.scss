@@ -10,12 +10,13 @@
   width: 100%;
 }
 
-@import "./Components/Header/Header.scss";
-@import "./Components/Main/Home/Home.scss";
-@import "./Components/Main/We/We.scss";
-@import "./Components/Main/Programs/Programs.scss";
-@import "./Components/Main/Price/Price.scss";
-@import "./Components/Main/Benefit/Benefit.scss";
-@import "./Components/Main/Companye/Companye.scss";
-@import "./Components/Footer/Footer.scss";
-@import "./Components/Main/Follow/Follow.scss";
+:root {
+  --sb-bg: #ffffff;
+  --sb-surface: #f6f7f8;
+  --sb-text: #111827;
+  --sb-muted: #6b7280;
+  --sb-border: #e5e7eb;
+  --sb-accent: #de1313;
+  --sb-accent-weak: #ecfdf5;
+  --sb-hover: #f3f4f6;
+}

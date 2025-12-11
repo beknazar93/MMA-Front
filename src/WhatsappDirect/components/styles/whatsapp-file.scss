@@ -1,0 +1,21 @@
+.whatsapp-file {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #d1d7db;
+
+  &__name {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__remove {
+    border: none;
+    background: transparent;
+    color: var(--wa-text-primary);
+    cursor: pointer;
+  }
+}

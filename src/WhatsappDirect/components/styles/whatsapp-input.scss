@@ -1,0 +1,84 @@
+.whatsapp-input {
+  padding: 8px 16px;
+  border-top: 1px solid var(--wa-border-subtle);
+  background: var(--wa-bg-input);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+    color: var(--wa-text-secondary);
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    svg {
+      display: block;
+    }
+
+    &--left {
+      margin-left: 2px;
+    }
+
+    &--send {
+      background: var(--wa-accent);
+      color: #111b21;
+
+      &:hover {
+        background: #1ebe5d;
+      }
+    }
+
+    &--send-disabled {
+      background: transparent;
+      color: var(--wa-text-secondary);
+      cursor: default;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+
+  &__attach-input {
+    display: none;
+  }
+
+  &__textarea {
+    flex: 1;
+    resize: none;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    background: var(--wa-bg-input-inner);
+    color: var(--wa-text-primary);
+    font-size: 14px;
+    min-height: 24px;
+    max-height: 90px;
+    line-height: 1.4;
+
+    &::placeholder {
+      color: var(--wa-text-secondary);
+    }
+  }
+}

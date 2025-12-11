@@ -1,0 +1,24 @@
+.whatsapp-context {
+  position: fixed;
+  z-index: 20;
+  background: #202c33;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  padding: 4px 0;
+  min-width: 140px;
+
+  &__item {
+    width: 100%;
+    padding: 6px 12px;
+    background: transparent;
+    border: none;
+    color: var(--wa-text-primary);
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      background: #111b21;
+    }
+  }
+}

@@ -1,0 +1,667 @@
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+// /* ==== цвета максимально близко к WhatsApp Web dark ==== */
+// :root {
+//   --wa-bg: #111b21; /* фон вокруг всего */
+//   --wa-bg-secondary: #0a1014; /* под плиткой чата */
+//   --wa-bg-header: #202c33;
+//   --wa-bg-input: #202c33;
+//   --wa-bg-input-inner: #202c33;
+//   --wa-bg-sidebar: #111b21;
+//   --wa-bg-sidebar-active: #202c33;
+//   --wa-bg-sidebar-hover: #202c33;
+//   --wa-bg-msg-out: #005c4b;
+//   --wa-bg-msg-in: #202c33;
+//   --wa-bg-msg-hover: rgba(255, 255, 255, 0.04);
+//   --wa-bg-day-pill: #202c33;
+
+//   --wa-text-primary: #e9edef;
+//   --wa-text-secondary: #8696a0;
+//   --wa-text-muted: #8696a0;
+
+//   --wa-accent: #25d366;
+//   --wa-border-subtle: #202c33;
+// }
+
+// /* ==== общий layout ==== */
+
+// .wa {
+//   display: flex;
+//   height: 100vh;
+//   background: var(--wa-bg);
+//   color: var(--wa-text-primary);
+//   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+//     sans-serif;
+//   overflow: hidden;
+
+//   &__main {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     background: url("https://web.whatsapp.com/img/bg-chat-tile_9f69ab4b8b90b1bc.png")
+//       repeat;
+//     background-color: var(--wa-bg-secondary);
+//   }
+// }
+
+// /* ==== SIDEBAR ==== */
+
+// .wa-sidebar {
+//   width: 360px;
+//   max-width: 360px;
+//   min-width: 320px;
+//   display: flex;
+//   flex-direction: column;
+//   background: var(--wa-bg-sidebar);
+//   border-right: 1px solid #000;
+
+// &__top {
+//     height: 60px;
+//     padding: 10px 16px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     background: var(--wa-bg-header);
+//     border-right: 1px solid #000;
+//   }
+
+//   &__top-right {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//   }
+
+//   &__actions {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//   }
+
+//   &__refresh {
+//     width: 28px;
+//     height: 28px;
+//     border-radius: 50%;
+//     border: none;
+//     background: transparent;
+//     color: var(--wa-text-secondary);
+//     cursor: pointer;
+//     font-size: 16px;
+
+//     &:hover {
+//       background: #202c33;
+//     }
+//   }
+
+// &__time {
+//     font-size: 11px;
+//     color: var(--wa-text-secondary);
+//     flex-shrink: 0;
+//   }
+
+//   &__time--unread {
+//     color: #25d366;
+//     font-weight: 600;
+//   }
+
+//   &__badge {
+//     min-width: 20px;
+//     height: 20px;
+//     padding: 0 6px;
+//     border-radius: 999px;
+//     background: #25d366;
+//     color: #111b21;
+//     font-size: 11px;
+//     font-weight: 600;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-shrink: 0;
+//   }
+
+//   &__item-bottom {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     gap: 8px;
+//   }
+
+
+//   &__preview {
+//     font-size: 13px;
+//     color: var(--wa-text-muted);
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+
+//   &__badge {
+//     min-width: 20px;
+//     height: 20px;
+//     padding: 0 6px;
+//     border-radius: 999px;
+//     background: #25d366;
+//     color: #111b21;
+//     font-size: 11px;
+//     font-weight: 600;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-shrink: 0;
+//   }
+
+//   &__title {
+//     font-size: 18px;
+//     font-weight: 600;
+//   }
+
+//   &__status {
+//     padding: 2px 8px;
+//     border-radius: 999px;
+//     background: #1f4e2f;
+//     color: #e9edef;
+//     font-size: 11px;
+//     font-weight: 500;
+//   }
+
+//   &__search {
+//     padding: 8px 12px;
+//     border-bottom: 1px solid var(--wa-border-subtle);
+
+//     input {
+//       width: 100%;
+//       height: 34px;
+//       border-radius: 8px;
+//       border: none;
+//       outline: none;
+//       padding: 0 10px;
+//       background: #202c33;
+//       color: var(--wa-text-primary);
+//       font-size: 13px;
+
+//       &::placeholder {
+//         color: var(--wa-text-secondary);
+//       }
+//     }
+//   }
+
+//   &__list {
+//     flex: 1;
+//     overflow-y: auto;
+//     scrollbar-width: thin;
+//     scrollbar-color: #444 transparent;
+//   }
+
+//   &__list::-webkit-scrollbar {
+//     width: 6px;
+//   }
+
+//   &__list::-webkit-scrollbar-thumb {
+//     background: #444;
+//   }
+
+//   &__item {
+//     width: 100%;
+//     border: none;
+//     outline: none;
+//     background: transparent;
+//     color: inherit;
+//     text-align: left;
+//     padding: 10px 14px;
+//     display: flex;
+//     gap: 10px;
+//     cursor: pointer;
+//     border-bottom: 1px solid var(--wa-border-subtle);
+
+//     &:hover {
+//       background: var(--wa-bg-sidebar-hover);
+//     }
+
+//     &--active {
+//       background: var(--wa-bg-sidebar-active);
+//     }
+//   }
+
+//   &__avatar {
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 50%;
+//     flex-shrink: 0;
+//     object-fit: cover;
+//   }
+
+//   &__item-main {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2px;
+//     overflow: hidden;
+//   }
+
+//   &__item-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     gap: 8px;
+//   }
+
+//   &__name {
+//     font-size: 15px;
+//     font-weight: 500;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+
+//   &__time {
+//     font-size: 11px;
+//     color: var(--wa-text-secondary);
+//     flex-shrink: 0;
+//   }
+
+//   &__preview {
+//     font-size: 13px;
+//     color: var(--wa-text-muted);
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+// }
+
+// /* ==== HEADER ==== */
+
+// .wa-chat-header {
+//   height: 60px;
+//   background: var(--wa-bg-header);
+//   padding: 10px 16px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 12px;
+//   border-left: 1px solid #000;
+
+//   &__left {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2px;
+//   }
+
+//   &__name {
+//     font-size: 15px;
+//     font-weight: 500;
+//   }
+
+//   &__status {
+//     font-size: 12px;
+//     color: var(--wa-text-secondary);
+//   }
+
+//   &__right {
+//     font-size: 12px;
+//     color: var(--wa-text-secondary);
+//   }
+// }
+
+// /* ==== CHAT WINDOW ==== */
+
+// .wa-chat {
+//   position: relative;
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   padding: 8px 32px;
+//   overflow-y: auto;
+//   background-color: transparent;
+
+//   &--empty {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     font-size: 18px;
+//     color: var(--wa-text-secondary);
+//   }
+
+//   &__day {
+//     margin: 10px 0;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//   }
+
+//   &__day-label {
+//     display: inline-flex;
+//     padding: 4px 12px;
+//     border-radius: 999px;
+//     background: var(--wa-bg-day-pill);
+//     color: var(--wa-text-primary);
+//     font-size: 12px;
+//     margin-bottom: 8px;
+//   }
+
+//   /* === одно сообщение === */
+//   &__msg {
+//     position: relative;
+//     display: flex;              /* раньше было inline-flex */
+//     flex-direction: column;
+//     align-self: flex-start;     /* по умолчанию — к левой стороне */
+//     max-width: 65%;             /* ширина пузыря как в WhatsApp */
+//     padding: 6px 8px 4px 8px;
+//     border-radius: 8px;
+//     margin-bottom: 4px;
+//     font-size: 14px;
+//     line-height: 1.4;
+//     background: var(--wa-bg-msg-in);
+//     word-wrap: break-word;
+
+//     &:hover {
+//       background-color: var(--wa-bg-msg-hover);
+//     }
+
+//     &--me {
+//       align-self: flex-end;          /* наш месседж у правого края */
+//       background: var(--wa-bg-msg-out);
+//       border-bottom-right-radius: 0;
+//       border-bottom-left-radius: 8px;
+//     }
+
+//     &--client {
+//       align-self: flex-start;        /* собеседник — слева */
+//       background: var(--wa-bg-msg-in);
+//       border-bottom-left-radius: 0;
+//       border-bottom-right-radius: 8px;
+//     }
+//   }
+
+//   &__msg-text {
+//     white-space: pre-wrap;
+//     word-wrap: break-word;
+//   }
+
+//   &__msg-time {
+//     align-self: flex-end;
+//     font-size: 11px;
+//     color: var(--wa-text-secondary);
+//     margin-top: 2px;
+//   }
+
+//   &__reply {
+//     padding: 4px 6px;
+//     border-left: 3px solid var(--wa-accent);
+//     background: rgba(0, 0, 0, 0.15);
+//     border-radius: 4px;
+//     margin-bottom: 4px;
+//     font-size: 12px;
+//   }
+
+//   &__reply-author {
+//     font-weight: 600;
+//     margin-bottom: 2px;
+//   }
+
+//   &__reply-text {
+//     color: #d1d7db;
+//   }
+
+//   &__media {
+//     max-width: 260px;
+//     border-radius: 6px;
+//     margin-bottom: 4px;
+
+//     &--image {
+//       display: block;
+//     }
+
+//     &--video {
+//       display: block;
+//     }
+//   }
+// }
+
+// /* ==== INPUT + REPLY + FILE TAG (низ, как в WhatsApp) ==== */
+
+// .wa-input {
+//   padding: 8px 16px;
+//   border-top: 1px solid var(--wa-border-subtle);
+//   background: var(--wa-bg-input);
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+// }
+
+// .wa-input__row {
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+// }
+
+// /* кнопки-иконки слева и справа */
+
+// .wa-input__icon-btn {
+//   width: 32px;
+//   height: 32px;
+//   border-radius: 50%;
+//   border: none;
+//   background: transparent;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   font-size: 18px;
+//   flex-shrink: 0;
+//   color: var(--wa-text-secondary);
+//   transition: background 0.15s ease, color 0.15s ease;
+
+//   &:hover {
+//     background: rgba(255, 255, 255, 0.05);
+//   }
+
+//   svg {
+//     display: block;
+//   }
+// }
+
+// .wa-input__icon-btn--left {
+//   margin-left: 2px;
+// }
+
+// .wa-input__icon-btn--send {
+//   background: var(--wa-accent);
+//   color: #111b21;
+
+//   &:hover {
+//     background: #1ebe5d;
+//   }
+// }
+
+// .wa-input__icon-btn--send-disabled {
+//   background: transparent;
+//   color: var(--wa-text-secondary);
+//   cursor: default;
+
+//   &:hover {
+//     background: transparent;
+//   }
+// }
+
+// .wa-input__attach-input {
+//   display: none;
+// }
+
+// /* текстовое поле */
+
+// .wa-input__textarea {
+//   flex: 1;
+//   resize: none;
+//   border-radius: 8px;
+//   border: none;
+//   outline: none;
+//   padding: 8px 12px;
+//   background: var(--wa-bg-input-inner);
+//   color: var(--wa-text-primary);
+//   font-size: 14px;
+//   min-height: 24px;
+//   max-height: 90px;
+//   line-height: 1.4;
+
+//   &::placeholder {
+//     color: var(--wa-text-secondary);
+//   }
+// }
+
+// /* блок "ответить" над инпутом */
+
+// .wa-reply {
+//   display: flex;
+//   align-items: stretch;
+//   background: var(--wa-bg-input);
+//   border-radius: 8px;
+// }
+
+// .wa-reply__bar {
+//   width: 4px;
+//   border-radius: 8px 0 0 8px;
+//   background: var(--wa-accent);
+// }
+
+// .wa-reply__content {
+//   flex: 1;
+//   padding: 6px 8px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 2px;
+// }
+
+// .wa-reply__title {
+//   font-size: 13px;
+//   font-weight: 600;
+// }
+
+// .wa-reply__text {
+//   font-size: 12px;
+//   color: #d1d7db;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
+// .wa-reply__close {
+//   border: none;
+//   background: transparent;
+//   color: var(--wa-text-primary);
+//   width: 32px;
+//   cursor: pointer;
+// }
+
+// /* выбранный файл */
+
+// .wa-file {
+//   display: flex;
+//   align-items: center;
+//   gap: 6px;
+//   font-size: 12px;
+//   color: #d1d7db;
+// }
+
+// .wa-file__name {
+//   max-width: 200px;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
+// .wa-file__remove {
+//   border: none;
+//   background: transparent;
+//   color: var(--wa-text-primary);
+//   cursor: pointer;
+// }
+
+// /* ==== контекстное меню "Ответить" ==== */
+
+// .wa-context {
+//   position: fixed;
+//   z-index: 20;
+//   background: #202c33;
+//   border-radius: 4px;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+//   padding: 4px 0;
+//   min-width: 140px;
+// }
+
+// .wa-context__item {
+//   width: 100%;
+//   padding: 6px 12px;
+//   background: transparent;
+//   border: none;
+//   color: var(--wa-text-primary);
+//   text-align: left;
+//   font-size: 14px;
+//   cursor: pointer;
+
+//   &:hover {
+//     background: #111b21;
+//   }
+// }
+
+
+
+
+
+
+:root {
+  --wa-bg: #111b21;
+  --wa-bg-secondary: #0a1014;
+  --wa-bg-header: #202c33;
+  --wa-bg-input: #202c33;
+  --wa-bg-input-inner: #202c33;
+  --wa-bg-sidebar: #111b21;
+  --wa-bg-sidebar-active: #202c33;
+  --wa-bg-sidebar-hover: #202c33;
+  --wa-bg-msg-out: #005c4b;
+  --wa-bg-msg-in: #202c33;
+  --wa-bg-msg-hover: rgba(255, 255, 255, 0.04);
+  --wa-bg-day-pill: #202c33;
+
+  --wa-text-primary: #e9edef;
+  --wa-text-secondary: #8696a0;
+  --wa-text-muted: #8696a0;
+
+  --wa-accent: #25d366;
+  --wa-border-subtle: #202c33;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.whatsapp {
+  display: flex;
+  height: 100vh;
+  background: var(--wa-bg);
+  color: var(--wa-text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  overflow: hidden;
+
+  &__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: url("https://web.whatsapp.com/img/bg-chat-tile_9f69ab4b8b90b1bc.png")
+      repeat;
+    background-color: var(--wa-bg-secondary);
+  }
+}
+
+@import "./whatsapp-sidebar";
+@import "./whatsapp-header";
+@import "./whatsapp-chat";
+@import "./whatsapp-input";
+@import "./whatsapp-reply";
+@import "./whatsapp-file";
+@import "./whatsapp-context";

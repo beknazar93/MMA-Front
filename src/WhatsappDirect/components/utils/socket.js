@@ -5,6 +5,6 @@
 
 
 import { io } from "socket.io-client";
-import { WHATSAPP_SOCKET_URL } from "../../config/whatsappConfig";
+import { WHATSAPP_API_URL, WHATSAPP_SOCKET_URL } from "../../config/whatsappConfig";
 
 export const socket = io(WHATSAPP_SOCKET_URL);

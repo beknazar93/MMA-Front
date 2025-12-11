@@ -37,7 +37,7 @@ const CRM = () => {
 
           <Route path="/leadstabs" element={<LeadsTabs />} />
           <Route path="/funneltabs" element={<FunnelTabs />} />
-          <Route path="/whatsapp" element={<WhatsappModule />} />
+          {/* <Route path="/whatsapp" element={<WhatsappModule />} /> */}
 
           {/* fallback */}
           <Route path="*" element={<Navigate to="/crm" replace />} />
